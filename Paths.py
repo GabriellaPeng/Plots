@@ -1,7 +1,3 @@
-import os
-import os.path
-import numpy as np
-from pathlib import Path
 
 root_path = "/Users/gabriellapeng/OneDrive - Concordia University - Canada/gaby/pp2_data/calib"
 

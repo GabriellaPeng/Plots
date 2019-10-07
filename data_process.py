@@ -15,4 +15,5 @@ def process_calib_likes(calib_likes, algorithms, gofs, top_percent=0.2):
             if gof in maxi:
                 proc_likes[gof][m] = np.sort(likes)[-no_likes:]
             elif gof in mini:
-                proc_likes[gof][m] = np.sort(likes)[-no_likes:]
+                proc_likes[gof][m] = np.sort(likes)[:no_likes]
+    return proc_likes

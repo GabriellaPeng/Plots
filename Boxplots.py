@@ -6,7 +6,6 @@ def boxplot_calib_parameters(gofs, algorithms, calib_gofs, valid_gofs):
     sns.set(style="ticks")
 
 
-
 def boxplot_calib_valid_gofs():
     pass
 
