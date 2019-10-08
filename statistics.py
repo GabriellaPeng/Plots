@@ -1,4 +1,4 @@
-
+import numpy as np
 
 def theil_inequal(y_predict, y_obs):
     not_nan = np.where(~np.isnan(y_obs))

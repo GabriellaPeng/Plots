@@ -1,3 +1,6 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
 
 
 def plot_top_sim_obs(sim_norm, obs_norm, npoly, save_plot, proc_sim, percentails=None, l_poly=None):

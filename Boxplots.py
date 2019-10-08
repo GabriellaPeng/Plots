@@ -1,9 +1,38 @@
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
 
-def boxplot_calib_parameters(gofs, algorithms, calib_gofs, valid_gofs):
-    sns.set(style="ticks")
+
+def boxplot_calib_parameters(gofs, algorithms, data):
+    dt = data
+    sns.set(style="whitegrid") #"darkgrid"
+
+    dt_col = list(dt.head())
+    g = sns.catplot(x=dt_col[0], y=dt_col[2], col=dt_col[3], hue=dt_col[1], data=dt, palette="vlag", kind='violin',
+                height=4,
+                aspect=1.5, sharex=False, legend_out=True)
+
+    ax1, ax2, ax3, ax4 = g.axes[0]
+
+    ax1.axvline(10, ls='--')
+    ax2.axvline(30, ls='--')
+
+    g.savefig("combine calib_valid.png")
+    # sns.despine(trim=True, left=True, bottom=True)
+
+    # ncol = len(gofs)
+    # fig = plt.figure(figsize=(4 * 2 * len(gofs), 4), constrained_layout=False)
+    # gs = GridSpec(ncols=ncol, nrows=1, wspace=0.0, hspace=0.0)
+
+    # for i in range(ncol):
+    #     vars()[f'ax' + str(i)] = fig.add_subplot(gs[i])
+
+        # vars()[f'ax' + str(i)].legend(ncol=2, loc="lower right", frameon=True)
+        # vars()[f'ax' + str(i)].set(xlim=(0, 24), ylabel="Algorithms", xlabel=f"{gof.upper()}")
+        #
+        # vars()[f'ax' + str(i)].xaxis.grid(True)
+
 
 
 def boxplot_calib_valid_gofs():
