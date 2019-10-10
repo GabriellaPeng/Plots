@@ -1,7 +1,7 @@
 
 
 
-def _set_ax_marker(ax, xlabel, ylabel, title, xlim=None, ylim=None):
+def _set_ax_marker(ax, xlabel='', ylabel='', title='', xlim=None, ylim=None):
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
 
@@ -13,7 +13,7 @@ def _set_ax_marker(ax, xlabel, ylabel, title, xlim=None, ylim=None):
     ax.set_title(title)
 
 
-def clr_marker(mtd_clr=False, mtd_mkr=False, obj_fc_clr=False, obj_fc_mkr=False, wt_mu_m=False):
+def _clr_marker(mtd_clr=False, mtd_mkr=False, obj_fc_clr=False, obj_fc_mkr=False, wt_mu_m=False):
     if mtd_clr:
         return {'fscabc': 'b', 'dream': 'orange', 'mle': 'r', 'demcz': 'g'}
     elif mtd_mkr:

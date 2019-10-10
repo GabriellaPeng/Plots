@@ -1,72 +1,39 @@
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
 
 
-def boxplot_calib_parameters(gofs, algorithms, data):
+def boxplot_calib_parameters(data, means=None, save=None, kind='box'):
     dt = data
-    sns.set(style="whitegrid") #"darkgrid"
-
+    plt.ioff()
+    sns.set(style="darkgrid")  # "darkgrid"
+    # colors = ['#ff7878',  '#84a9cd']
+    # sns.set_palette(sns.color_palette(colors))
     dt_col = list(dt.head())
-    g = sns.catplot(x=dt_col[0], y=dt_col[2], col=dt_col[3], hue=dt_col[1], data=dt, palette="vlag", kind='violin',
-                height=4,
-                aspect=1.5, sharex=False, legend_out=True)
 
-    ax1, ax2, ax3, ax4 = g.axes[0]
+    g = sns.catplot(x=dt_col[0], y=dt_col[2], col=dt_col[3], hue=dt_col[1], data=dt, kind=kind, palette="vlag",
+                    height=4, aspect=1.5, sharex=False, legend_out=True)
+    fontsize = 12
+    ticksize = 10
+    for i in range(len(g.axes[0])):
+        vars()[f'ax{i}'] = g.axes[0][i]
 
-    ax1.axvline(10, ls='--')
-    ax2.axvline(30, ls='--')
+        vars()[f'ax{i}'].set_xlabel("",fontsize=fontsize)
+        vars()[f'ax{i}'].set_ylabel("",fontsize=fontsize)
+        vars()[f'ax{i}'].tick_params(labelsize=ticksize)
 
-    g.savefig("combine calib_valid.png")
-    # sns.despine(trim=True, left=True, bottom=True)
+    # for i, (gof, als) in enumerate(means.items()):
+    #     vars()[f'ax{i}'] = g.axes[0][i]
+    #     for al, m in als.items():
+    #         if gof =='aic':
+    #             vars()[f'ax{i}'].axvline(m, ls='--', color=colors[1])
+    #         else:
+    #             vars()[f'ax{i}'].axvline(m[0], ls='--', color=colors[0])
+    #             vars()[f'ax{i}'].axvline(m[1], ls='--', color=colors[1])
 
-    # ncol = len(gofs)
-    # fig = plt.figure(figsize=(4 * 2 * len(gofs), 4), constrained_layout=False)
-    # gs = GridSpec(ncols=ncol, nrows=1, wspace=0.0, hspace=0.0)
-
-    # for i in range(ncol):
-    #     vars()[f'ax' + str(i)] = fig.add_subplot(gs[i])
-
-        # vars()[f'ax' + str(i)].legend(ncol=2, loc="lower right", frameon=True)
-        # vars()[f'ax' + str(i)].set(xlim=(0, 24), ylabel="Algorithms", xlabel=f"{gof.upper()}")
-        #
-        # vars()[f'ax' + str(i)].xaxis.grid(True)
-
+    if save is not None:
+        g.savefig(save + f"{kind}1.png")
+    plt.clf()
 
 
 def boxplot_calib_valid_gofs():
     pass
-
-
-def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, save_plot, fig, ax, ind_ax=None):
-    q5, q25, q75, q95 = [], [], [], []
-    for t in range(len(observations)):
-        q5.append(np.percentile(sim_res[:, t], 2.5))
-        q95.append(np.percentile(sim_res[:, t], 97.5))
-    ax.plot(q5, color='dimgrey', linestyle='solid')
-    ax.plot(q95, color='dimgrey', linestyle='solid')
-    ax.fill_between(np.arange(0, len(q5), 1), list(q5), list(q95), facecolor='dimgrey', zorder=0,
-                    linewidth=0, label='5th-95th percentile parameter uncertainty', alpha=0.4)
-    for n, array in proc_sim.items():
-        ax.plot(array, color=f'{clr_marker(wt_mu_m=True)[n]}', label=f'{n.capitalize()[:n.index("_")]} Simulation',
-                linestyle='dashed')
-
-    ax.plot(observations, 'r-', label=f'Poly{poly} observation')
-    ax.set_ylim(-6, 9)
-    ax.set_yticks(np.arange(-6, 9, 2))
-    yrange = [str(i) for i in np.arange(-4, 9, 2)]
-    yrange.insert(0, '')
-    if ind_ax is not None and ind_ax == 0:
-        ax.set_yticklabels(yrange, size=15)
-    else:
-        ax.yaxis.set_major_formatter(plt.NullFormatter())
-
-    ax.set_xticks(np.arange(len(observations)))
-    ax.xaxis.set_major_formatter(plt.NullFormatter())
-    # ax.set_xticklabels([f'{i}-season' for i in np.arange(len(observations))], rotation=45, size=6)
-    # ax.legend()
-    if ind_ax is None:
-        fig.savefig(save_plot + f'{poly}')
-        plt.close('all')
-        plt.clf()
