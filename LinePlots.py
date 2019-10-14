@@ -6,57 +6,102 @@ from matplotlib.gridspec import GridSpec
 from examples.ex_Marks import _clr_marker, _set_ax_marker
 
 
+def bounds_cis(figures, l_poly, npoly, obs_norm, sims, p_sim, save_plot, plot_name):
+    types = plot_name['type']
+    alg = plot_name['alg']
+
+    l_pol = l_poly['ncol']
+    nrow = l_poly['nrow']
+
+    if isinstance(p_sim, dict):
+        ncol = len(l_pol)
+    else:
+        ncol = [len(l_pol) if nrow == 1 else 1][0]
+
+    def _ind_p(c, r, sims=sims, p_sim=p_sim):
+        if isinstance(p_sim, dict):
+            gofs = list(sims)
+            ind_p = npoly.index(l_pol[c])
+            p = l_pol[c]
+            ind_ax = [c, r, ncol, nrow]
+            sims = sims[gofs[r]][:, :, ind_p]
+            p_sim = p_sim[gofs[r]][:, ind_p]
+            gof = gofs[r]
+        else:
+            ind_p = npoly.index(l_pol[c + r])
+            p = l_pol[c + r]
+            ind_ax = [c, r, ncol]
+            sims = sims[:, :, ind_p]
+            p_sim = p_sim[:, ind_p]
+            gof = ''
+        return ind_p, p, ind_ax, sims, p_sim, gof
+
+    if 'bounds' in figures:
+        plt.ioff()
+        fig1 = plt.figure(figsize=(4 * 2 * ncol, 4 * nrow), constrained_layout=False)
+        gs1 = GridSpec(ncols=ncol, nrows=nrow, wspace=0.0, hspace=0.0)
+
+        for c in range(ncol):
+            for r in range(nrow):
+                vars()[f'ax1{r}{c}'] = fig1.add_subplot(gs1[r, c])
+
+        for c in range(ncol):
+            for r in range(nrow):
+                ind_p, p, ind_ax, sims, p_sim, gof= _ind_p(c, r)
+                param_uncertainty_bounds(sims, obs_norm[:, ind_p], p, p_sim,
+                                         ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax, ylabel=gof)
+
+        fig1.savefig(save_plot + f'Bs.{types[:3]}.{alg}.png')
+        plt.close(fig1)
+
+    elif 'cis' in figures:
+        plt.ioff()
+        fig2 = plt.figure(figsize=(4 * 2 * ncol, 4 * nrow), constrained_layout=False)
+        gs2 = GridSpec(ncols=ncol, nrows=nrow, wspace=0.0, hspace=0.0)
+
+        for c in range(ncol):
+            for r in range(nrow):
+                vars()[f'ax2{r}{c}'] = fig2.add_subplot(gs2[r, c])
+
+        for c in range(ncol):
+            for r in range(nrow):
+                ind_p, p, ind_ax, sims, p_sim, gof= _ind_p(c, r)
+                plot_ci(sims, obs_norm[:, ind_p], f'Poly-{p}', ax=vars()[f'ax2{r}{c}'],
+                        ind_ax=ind_ax, ylabel=gof)
+        fig2.savefig(save_plot + f'CI.{types[:3]}.{alg}.png')
+        plt.close(fig2)
+
+
 def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_sim, l_poly=None,
                      figures=['cis'], alg=None):
     '''l_poly = {nrow: int, ncol:[list of list]}'''
-    for type, sims in dict_sim.items():
-        if type == 'all_res':
-            p_sim = dict_sim_norm['weighted_sim']
-        elif type == 'weighted_res':
-            p_sim = dict_sim_norm['top_weighted_sim']
 
-        sns.set(style="darkgrid")
+    sns.set(style="darkgrid")
+    if l_poly is not None:
+        if 'weighted_res' not in dict_sim:
+            type = 'weighted_res'
+            p_sim = {gof: v['top_weighted_sim'] for gof, v in dict_sim_norm.items()}
+            sims = {gof: v['weighted_res'] for gof, v in dict_sim.items()}
 
-        if l_poly is not None:
-            l_pol = l_poly['ncol']
-            nrow = l_poly['nrow']
-            ncol = [len(l_pol) if nrow==1 else 1][0]
-
-            if 'bounds' in figures:
-                plt.ioff()
-                fig1 = plt.figure(figsize=(4 * 2 * ncol, 4*nrow), constrained_layout=False)
-                gs1 = GridSpec(ncols=ncol, nrows=nrow, wspace=0.0, hspace=0.0)
-
-                for c in range(ncol):
-                    for r in range(nrow):
-                        vars()[f'ax1{c}{r}'] = fig1.add_subplot(gs1[c+r])
-
-                for c in range(ncol):
-                    for r in range(nrow):
-                        ind_p = npoly.index(l_pol[c+r])
-                        param_uncertainty_bounds(sims[:, :, ind_p], obs_norm[:, ind_p], l_pol[c+r], p_sim[:, ind_p],
-                                                 ax=vars()[f'ax1{c}{r}'], ind_ax=[r, c, nrow])
-
-                fig1.savefig(save_plot + f'Bs.{type[:3]}.{alg}.png')
-                plt.close(fig1)
-
-            elif 'cis' in figures:
-                plt.ioff()
-                fig2 = plt.figure(figsize=(4 * 2 * ncol, 4), constrained_layout=False)
-                gs2 = GridSpec(ncols=len(l_poly), nrows=1, wspace=0.0, hspace=0.0)
-
-                for c in range(ncol):
-                    for r in range(nrow):
-                        vars()[f'ax2{c}{r}'] = fig2.add_subplot(gs2[c+r])
-
-                for c in range(ncol):
-                    for r in range(nrow):
-                        ind_p = npoly.index(l_pol[c+r])
-                        plot_ci(sims[:, :, ind_p], obs_norm[:, ind_p], f'Poly-{l_pol[c+r]}', ax=vars()[f'ax2{c}{r}'], ind_ax=[r, c, nrow])
-                fig2.savefig(save_plot + f'CI.{type[:3]}.{alg}.png')
-                plt.close(fig2)
+            bounds_cis(figures, l_poly, npoly, obs_norm, sims, p_sim, save_plot, {'type': type, 'alg': alg})
 
         else:
+            for type, sims in dict_sim.items():
+                if type == 'all_res':
+                    p_sim = dict_sim_norm['weighted_sim']
+                elif type == 'weighted_res':
+                    p_sim = dict_sim_norm['top_weighted_sim']
+
+                bounds_cis(figures, l_poly, npoly, obs_norm, sims, p_sim, save_plot, {'type': type, 'alg': alg})
+
+
+    else:
+        for type, sims in dict_sim.items():
+            if type == 'all_res':
+                p_sim = dict_sim_norm['weighted_sim']
+            elif type == 'weighted_res':
+                p_sim = dict_sim_norm['top_weighted_sim']
+
             for ind_p, p in enumerate(npoly):
 
                 if 'bounds' in figures:
@@ -82,7 +127,7 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_sim, l_poly
                     plt.close(fig2)
 
 
-def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None):
+def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None, ylabel=None):
     q5, q25, q75, q95 = [], [], [], []
     for t in range(len(observations)):
         q5.append(np.percentile(sim_res[:, t], 2.5))
@@ -98,35 +143,20 @@ def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=N
 
     ax.plot(observations, 'r-', label=f'Polygon{poly} observation')
     ax.set_ylim(-6, 9)
-    ax.set_yticks(np.arange(-6, 9, 2))
+
     yrange = [str(i) for i in np.arange(-4, 9, 2)]
     yrange.insert(0, '')
 
-    if len(ind_ax) == 3:
-        r = ind_ax[0]
-        c = ind_ax[1]
-        nrow = ind_ax[-1]
-        if c == 0:
-            ax.set_yticklabels(yrange, size=15)
-        else:
-            ax.yaxis.set_major_formatter(plt.NullFormatter())
+    ax.set_yticks(np.arange(-6, 9, 2))
+    ax.set_xticks(np.arange(0, len(observations), 2))
 
-        if r == nrow-1:
-            ax.set_xticks(np.arange(0, len(observations), 2))
-            ax.set_xticklabels(np.arange(2, len(observations) + 2, 2))
-
-        else:
-            ax.xaxis.set_major_formatter(plt.NullFormatter())
-
-    else:
-        ax.set_yticklabels(yrange, size=15)
-        ax.set_xticks(np.arange(0, len(observations), 2))
-        ax.set_xticklabels(np.arange(2, len(observations) + 2, 2))
+    xticklabel = np.arange(2, len(observations) + 2, 2)
+    ind_ax_set(ind_ax, yrange, 15, xticklabel, 10, ax, ylabel=ylabel)
 
     ax.legend(loc='upper left', prop={'size': 10})
 
 
-def plot_ci(sims, obs, poly, ax, ind_ax=None):
+def plot_ci(sims, obs, poly, ax, ind_ax=None, ylabel=None):
     time = sims.shape[1]
 
     x_data = np.arange(0, 101, 10)
@@ -149,31 +179,14 @@ def plot_ci(sims, obs, poly, ax, ind_ax=None):
     y_dt.append(0)
     y_data = np.sort(y_dt)
 
-    yarang = np.arange(0, 1.1, 0.1)
+    yarang = [np.round(i, 2) for i in np.arange(0, 1.1, 0.1)]
     ax.plot(x_data, yarang, 'g-.')
     ax.plot(x_data, y_data, 'r.-', label=f"{poly} CI")
 
     ax.set_yticks(yarang)
+    ax.set_xticks(x_data)
 
-    if len(ind_ax) == 3:
-        r = ind_ax[0]
-        c = ind_ax[1]
-        nrow = ind_ax[-1]
-        if c == 0:
-            ax.set_yticklabels(yarang, size=11)
-        else:
-            ax.yaxis.set_major_formatter(plt.NullFormatter())
-
-        if r == nrow - 1:
-            ax.set_xticks(x_data, [np.round(i, 1) for i in x_data])
-            ax.set_xticklabels([f'{np.round(i, 1)}CI' for i in x_data], size=12)
-        else:
-            ax.xaxis.set_major_formatter(plt.NullFormatter())
-
-    else:
-        ax.set_yticklabels(yarang, size=11)
-        ax.set_xticks(x_data, [np.round(i, 1) for i in x_data])
-        ax.set_xticklabels([f'{np.round(i, 1)}CI' for i in x_data], size=12)
+    ind_ax_set(ind_ax, yarang, 11, [f'{i}CI' for i in x_data], 12, ax, ylabel=ylabel)
 
     ax.legend(loc='upper left', frameon=False, prop={'size': 13})
 
@@ -200,6 +213,29 @@ def plot_ci(sims, obs, poly, ax, ind_ax=None):
     #     ax.set_yticklabels([np.round(i, 2) for i in np.arange(0, 1.1, 0.1)], size=15)
     # else:
     #     ax.yaxis.set_major_formatter(plt.NullFormatter())
+
+
+def ind_ax_set(ind_ax, yticklabel, yticksize, xticklabel, xticksize, ax, ylabel, ylabelsize=20):
+    if len(ind_ax) > 1:
+        c, r, nrow = ind_ax[0], ind_ax[1], ind_ax[3]
+        if c == 0:
+            ax.set_yticklabels(yticklabel, size=yticksize)
+            ax.set_ylabel(ylabel.upper(), fontsize=20)
+            if r == nrow-1:
+                ax.set_xticklabels(xticklabel, size=xticksize)
+            else:
+                ax.xaxis.set_major_formatter(plt.NullFormatter())
+
+        elif r == nrow - 1:
+            ax.set_xticklabels(xticklabel, size=xticksize)
+            ax.yaxis.set_major_formatter(plt.NullFormatter())
+        else:
+            ax.xaxis.set_major_formatter(plt.NullFormatter())
+            ax.yaxis.set_major_formatter(plt.NullFormatter())
+
+    else:
+        ax.set_yticklabels(yticklabel, size=yticksize)
+        ax.set_xticklabels(xticklabel, size=xticksize)
 
 
 def _ci(data, obs_data, confidence=0.95, probs=None, counts=None):
