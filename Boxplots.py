@@ -11,7 +11,10 @@ def boxplot_calib_parameters(data, means=None, save=None, kind='box'):
     dt_col = list(dt.head())
 
     g = sns.catplot(x=dt_col[0], y=dt_col[2], col=dt_col[3], hue=dt_col[1], data=dt, kind=kind, palette="vlag",
-                    height=4, aspect=1.5, sharex=False, legend_out=True)
+                    height=5, aspect=1.1, sharex=False, legend_out=False)
+
+    plt.subplots_adjust(wspace=.01)
+
     fontsize = 12
     ticksize = 10
     for i in range(len(g.axes[0])):
@@ -20,7 +23,6 @@ def boxplot_calib_parameters(data, means=None, save=None, kind='box'):
         vars()[f'ax{i}'].set_xlabel("",fontsize=fontsize)
         vars()[f'ax{i}'].set_ylabel("",fontsize=fontsize)
         vars()[f'ax{i}'].tick_params(labelsize=ticksize)
-
     # for i, (gof, als) in enumerate(means.items()):
     #     vars()[f'ax{i}'] = g.axes[0][i]
     #     for al, m in als.items():
@@ -31,7 +33,7 @@ def boxplot_calib_parameters(data, means=None, save=None, kind='box'):
     #             vars()[f'ax{i}'].axvline(m[1], ls='--', color=colors[1])
 
     if save is not None:
-        g.savefig(save + f"{kind}1.png")
+        g.savefig(save + f"{kind}-num.png", dpi=500)
     plt.clf()
 
 

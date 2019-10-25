@@ -15,6 +15,8 @@ def process_calib_likes(calib_likes, algorithms, gofs, top_percent=0.2):
             likes = calib_likes[gof][m]
             if gof == 'aic' and np.nanmean(likes) > 0:
                 likes = np.negative(likes)
+            elif gof =='rmse' and np.nanmean(likes) < 0:
+                likes = np.negative(likes)
 
             no_likes = int(len(likes) * top_percent)
 

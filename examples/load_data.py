@@ -97,6 +97,7 @@ def load_observe_data(obs_path):
     return obs_data
 
 
+from xarray import Dataset
 def load_simlated_data(algorithm, gof, simul_path, mask, variable,
                        warmup_period=True):  # mask = {obs: obs_norm, 39*19, polys:[]}
     d_val = {'dream': {'aic': (500, 1000), 'nse': (0, 500), 'rmse': (0, 500), 'mic': (0, 555)},
