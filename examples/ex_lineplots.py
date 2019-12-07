@@ -1,25 +1,39 @@
-from LinePlots import plot_top_sim_obs
-from Paths import valid_polygon, valid_obs_norm, plot_path
-from data_process import _soil_canal, _combine_soil_canal_data
-from examples.load_data import load_obs_data, load_observe_data, load_valid_likes, load_valid_res
+from LinePlots import plot_top_sim_obs, plot_gof_convergence
+from Paths import valid_polygon, plot_path
+from examples.load_data import load_obs_data, load_observe_data, load_valid_res, load_calib_gof_data
 
-gofs = ['nse', 'rmse', 'aic', 'mic']
+gofs = ['aic', 'mic'] #'aic', 'mic'
 algorithms = ['fscabc', 'mle', 'demcz', 'dream']
 
 res_data = load_valid_res(algorithms, gofs, weighted_sim=False)
 sim_norm = load_valid_res(algorithms, gofs, weighted_sim=True)
 
 npoly = list(load_obs_data(valid_polygon))
-obs_norm = load_observe_data(valid_obs_norm)
+obs_norm = load_observe_data(valid_polygon, warmup_period=2)
 
-# soils, canals = _combine_soil_canal_data(npoly, soil_canal='soil'), _combine_soil_canal_data(npoly, soil_canal='canal')
 
-# for sc, dt, in soils.items():
+plot_sim = True
+plot_converge = False
 
-for al in algorithms:
-    dt = {'ncol': [17, 168, 175], 'nrow': 4}
-    for fig in ['bounds', 'cis']:
-        sim_norms = {gof: sim_norm[gof][al] for gof in gofs}
-        res_dt = {gof: res_data[gof][al] for gof in gofs}
-        plot_top_sim_obs(sim_norms, obs_norm, npoly, plot_path+f'{al}/', res_dt,
-                         l_poly=dt, alg=f'{al}', figures=[fig])
+if plot_sim:
+    for al in algorithms:
+        dt = {'ncol': [17, 168, 175] , 'nrow': 4}
+        for fig in ['bounds']: #, 'cis']:
+            #sim_norms = {gof: sim_norm[gof][al] for gof in gofs}
+            # res_dt = {gof: res_data[gof][al] for gof in gofs}
+            for gof in gofs:
+                sim_norms = {type_sim: dt for type_sim, dt in sim_norm[gof][al].items() if
+                             type_sim == 'top_weighted_sim'}
+
+                res_dt = {type_sim: dt for type_sim, dt in res_data[gof][al].items() if
+                 type_sim == 'weighted_res'}
+
+                plot_top_sim_obs(sim_norms, obs_norm, npoly, plot_path+f'{al}/{gof}/', res_dt,
+                                 l_poly=None, alg=f'{al}', figures=[fig])
+
+elif plot_converge:
+    for gof in gofs:
+        data = load_calib_gof_data(algorithms, gofs, tops=False)[gof]
+        plot_gof_convergence(gof, algorithms, data, plot_path + f'converge/')
+
+

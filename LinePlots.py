@@ -3,6 +3,8 @@ import seaborn as sns
 from scipy import stats
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
+
+from data_process import clr_marker
 from examples.ex_Marks import _clr_marker, _set_ax_marker
 
 
@@ -112,7 +114,7 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_sim, l_poly
 
                     param_uncertainty_bounds(sims[:, :, ind_p], obs_norm[:, ind_p], p, p_sim[:, ind_p],
                                              ax=ax1, ind_ax=[0])
-                    fig1.savefig(save_plot + f'bounds.{type}_{p}.png', dpi=400)
+                    fig1.savefig(save_plot + f'bounds.{type[:3]}.{p}.png', dpi=400)
                     plt.close(fig1)
 
                 elif 'cis' in figures:
@@ -123,7 +125,7 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_sim, l_poly
                     ax2 = fig2.add_subplot(gs2[0])
 
                     plot_ci(sims[:, :, ind_p], obs_norm[:, ind_p], f'Poly-{p}', ax=ax2, ind_ax=[0])
-                    fig2.savefig(save_plot + f'ci.{type}_{p}.png', dpi=400)
+                    fig2.savefig(save_plot + f'ci.{type[:3]}_{p}.png', dpi=400)
                     plt.close(fig2)
 
 
@@ -295,3 +297,38 @@ def confidence_interval(obs_norm, proc_sim, dict_probs):  # 495*41*19, 41*19
     #             perc = estad.percentileofscore(sim_norm[:, t, p], obs_norm[t, p], kind='weak')
     #             pcentl[t, p] = abs(0.5 - perc / 100) * 2
     # return {'all_mean': mean_pcentl, 'top_wt': top_wt_pcentl}
+
+
+def plot_gof_convergence(gof, methods, data, save=None):
+    def scale(x, out_range=(0, 1)):
+        domain = np.min(x), np.max(x)
+        y = (x - (domain[1] + domain[0]) / 2) / (domain[1] - domain[0])
+        return y * (out_range[1] - out_range[0]) + (out_range[1] + out_range)
+
+    vals = [i for m, v in data.items() for i in v]
+    if gof == 'rmse':
+        mini, maxi = -3.0, 0.0
+    elif gof == 'nse':
+        mini, maxi = -15.0, 1.0
+    elif gof == 'mic':
+        mini, maxi = np.min(vals), np.max(vals)+0.1
+    elif gof=='aic':
+        mini, maxi = np.min(vals), np.max(vals)+10
+
+    lines = []
+    sns.set()
+    fig, ax = plt.subplots(figsize=(30, 5))
+    ax.set_ylim(mini, maxi)
+
+    for m, v in data.items():
+        x = np.arange(0, len(v))
+        lines += ax.plot(x, v, '-', color=clr_marker(mtd_clr=True)[m])
+        # line = ax.plot(x, v, '-', color=clr_marker(mtd_clr=True)[m])
+        # ax.legend(line, [m.upper()], loc='upper left', frameon=False)
+    ax.set_xlabel('Number of Runs', fontname="Cambria", fontsize=20)
+    ax.set_ylabel(f'{gof.upper()}', fontname="Cambria", fontsize=20)
+    ax.legend(lines, [m.upper() for m in methods], ncol=4, loc='upper left', frameon=False)
+    if save is not None:
+        fig.savefig(save + f'{gof}', dpi=500)
+        plt.clf()
+        plt.close(fig)

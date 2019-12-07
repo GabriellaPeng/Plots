@@ -1,8 +1,14 @@
+import inspect
 import numpy as np
 
 maxi = ['nse', 'mic']
 mini = ['aic', 'rmse']
 
+def retrieve_name(var):
+    for fi in reversed(inspect.stack()):
+        names = [var_name for var_name, var_val in fi.frame.f_locals.items() if var_val is var]
+        if len(names) > 0:
+            return names[0]
 
 def process_calib_likes(calib_likes, algorithms, gofs, top_percent=0.2):
     maxi = ['nse', 'mic']
@@ -83,6 +89,7 @@ def _soil_canal(all_poly_dt):
             s_p[cls[8]].append(p)
     return s_p
 
+
 def _combine_soil_canal_data(polys, soil_canal='soil'):
     sc_data = _soil_canal(polys)
 
@@ -117,3 +124,15 @@ def _combine_soil_canal_data(polys, soil_canal='soil'):
 
         return canal_data
 
+
+def clr_marker(mtd_clr=False, mtd_mkr=False, obj_fc_clr=False, obj_fc_mkr=False, wt_mu_m=False):
+    if mtd_clr:
+        return {'fscabc': 'b', 'dream': 'orange', 'mle': 'r', 'demcz': 'g'}
+    elif mtd_mkr:
+        return {'fscabc':'o', 'dream':'v', 'mle':'x', 'demcz':'*'}
+    elif obj_fc_clr:
+        return {'aic': 'b', 'nse': 'orange', 'rmse': 'g'}
+    elif obj_fc_mkr:
+        return {'aic': 'o', 'nse': 'v', 'rmse': 'x'}
+    elif wt_mu_m:
+        return  {'weighted_sim' : 'orange', 'mean_sim': 'b', 'median_sim': 'g'}

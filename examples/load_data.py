@@ -1,7 +1,7 @@
 import json
 import os
 
-from xarray import Dataset
+# from xarray import Dataset
 import numpy as np
 import pandas as pd
 from Paths import res_path, variable
@@ -22,7 +22,7 @@ def load_calib_gof_data(algorithms, gofs, res_path=res_path, tops=False):
 
     for gof in gofs:
         for m in algorithms:
-            calib_likes = np.load(res_path + f'{m}/{m}_{gof}_PrmProb.npy', allow_pickle=True).tolist()['likes']
+            calib_likes = np.load(res_path + f'{m}/calib_{gof}_PrmProb.npy', allow_pickle=True).tolist()['likes']
             dict_gof[gof][m] = calib_likes
     if tops:
         dict_gof = process_calib_likes(dict_gof, algorithms, gofs, top_percent=0.2)
@@ -30,12 +30,27 @@ def load_calib_gof_data(algorithms, gofs, res_path=res_path, tops=False):
     return dict_gof
 
 
+def load_calib_param_data(algorithms, gofs, res_path=res_path, tops=False):
+    dict_params = {gof: {m: {} for m in algorithms} for gof in gofs}
+
+    for gof in gofs:
+        for m in algorithms:
+            mask = np.load(res_path + f'{m}/calib_{gof}.npy', allow_pickle=True).tolist()['buenas']
+            calib_params = np.load(res_path + f'{m}/calib_{gof}.npy', allow_pickle=True).tolist()['parameters']
+
+            if tops:
+                calib_params = {prm: np.take(vals, mask, axis=0) for prm, vals in calib_params.items()}
+            dict_params[gof][m] = calib_params
+
+    return dict_params
+
+
 def load_parameter_data(algorithms, gofs, res_path=res_path):
     dict_params = {gof: {m: {} for m in algorithms} for gof in gofs}
 
     for gof in gofs:
         for m in algorithms:
-            a = np.load(res_path + f'{m}/{m}_{gof}_PrmProb.npy', allow_pickle=True).tolist()
+            a = np.load(res_path + f'{m}/calib_{gof}_PrmProb.npy', allow_pickle=True).tolist()
             dict_params[gof][m] = {p: v for p, v in a.items() if p != 'likes'}
 
     return dict_params
@@ -92,12 +107,42 @@ def load_valid_res(algorithms, gofs, res_path=res_path, variable=variable, weigh
     return dict_gof
 
 
-def load_observe_data(obs_path):
-    obs_data = np.load(obs_path, allow_pickle=True).tolist()[variable]
-    return obs_data
+def load_theil_data(algorithms, gofs, res_path=res_path, variable=variable):
+    theil_data = {al: { } for al in algorithms}
+
+    numerical_gofs = {'gofs': ['nse', 'rmse'], 'type': "multidim"}
+    behavior_gofs = {'gofs': ['aic', 'mic'], 'type': "patrón"}
+
+    type_sim = 'top_weighted_sim'
+
+    for gof in gofs:
+        if gof in numerical_gofs['gofs']:
+            type = numerical_gofs['type']
+        elif gof in behavior_gofs['gofs']:
+            type = behavior_gofs['type']
+
+        for m in algorithms:
+            a = np.load(res_path + f'{m}/valid_{gof}.npy', allow_pickle=True).tolist()[variable][type][gof]['Theil'][type_sim]
+            theil_data[m][gof] = a
+
+    return theil_data
 
 
-from xarray import Dataset
+def load_observe_data(csv_path, warmup_period=None):
+    data = load_obs_data(csv_path)
+
+    if warmup_period is not None:
+        obs_data = np.zeros([len(data), len(list(data.values())[0])-warmup_period])
+        for i, (p, vals) in enumerate(data.items()):
+            obs_data[i] = vals[warmup_period:]
+    else:
+        obs_data = np.zeros([len(data), len(list(data.values())[0])])
+        for i, (p, vals) in enumerate(data.items()):
+            obs_data[i] = vals
+
+    return obs_data.T #39*18
+
+
 def load_simlated_data(algorithm, gof, simul_path, mask, variable,
                        warmup_period=True):  # mask = {obs: obs_norm, 39*19, polys:[]}
     d_val = {'dream': {'aic': (500, 1000), 'nse': (0, 500), 'rmse': (0, 500), 'mic': (0, 555)},

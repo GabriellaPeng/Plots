@@ -27,5 +27,4 @@ def group_calib_valib_likes(calib_likes, valid_likes, gofs, algorithms, save_pat
     sns.despine(trim=True, left=True)
 
 
-def params_
 
