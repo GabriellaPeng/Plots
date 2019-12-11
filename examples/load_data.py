@@ -1,7 +1,6 @@
 import json
 import os
 
-# from xarray import Dataset
 import numpy as np
 import pandas as pd
 from Paths import res_path, variable
@@ -81,7 +80,7 @@ def load_valid_likes(algorithms, gofs, res_path=res_path, variable=variable, wei
     return dict_gof
 
 
-def load_valid_res(algorithms, gofs, res_path=res_path, variable=variable, weighted_sim=False):
+def load_valid_res(algorithms, gofs, res_path=res_path, variable=variable, top_weighted_sim=False, gof_loc=False):
     dict_gof = {gof: {m: {} for m in algorithms} for gof in gofs}
 
     numerical_gofs = {'gofs': ['nse', 'rmse'], 'type': "multidim"}
@@ -94,15 +93,16 @@ def load_valid_res(algorithms, gofs, res_path=res_path, variable=variable, weigh
             g, type = gof, behavior_gofs['type']
 
         for m in algorithms:
-            if weighted_sim:
-                a = np.load(res_path + f'{m}/valid_{g}.npy', allow_pickle=True).tolist()[variable][type][gof]
-                dict_gof[gof][m]['weighted_sim'] = a['weighted_sim']
-                dict_gof[gof][m].update({'top_weighted_sim': a['top_weighted_sim']})
+            a = np.load(res_path + f'{m}/valid_{g}41.npy', allow_pickle=True).tolist()[variable][type][gof]
+            if gof_loc:
+                dict_gof[gof][m] = a['likes']['weighted_res']
 
-            else:
-                a = np.load(res_path + f'{m}/valid_{g}.npy', allow_pickle=True).tolist()[variable][type][gof]
+            elif top_weighted_sim:
                 dict_gof[gof][m]['weighted_res'] = a['weighted_res']
-                dict_gof[gof][m].update({'all_res': a['all_res']})
+                dict_gof[gof][m].update({'top_weighted_sim': a['top_weighted_sim']})
+            else:
+                dict_gof[gof][m]['all_res'] = a['all_res']
+                dict_gof[gof][m].update({'weighted_sim': a['weighted_sim']})
 
     return dict_gof
 
@@ -131,14 +131,12 @@ def load_theil_data(algorithms, gofs, res_path=res_path, variable=variable):
 def load_observe_data(csv_path, warmup_period=None):
     data = load_obs_data(csv_path)
 
-    if warmup_period is not None:
-        obs_data = np.zeros([len(data), len(list(data.values())[0])-warmup_period])
-        for i, (p, vals) in enumerate(data.items()):
-            obs_data[i] = vals[warmup_period:]
-    else:
-        obs_data = np.zeros([len(data), len(list(data.values())[0])])
-        for i, (p, vals) in enumerate(data.items()):
-            obs_data[i] = vals
+    if warmup_period is None:
+        warmup_period = 0
+
+    obs_data = np.zeros([len(data), len(list(data.values())[0])-warmup_period])
+    for i, (p, vals) in enumerate(data.items()):
+        obs_data[i] = vals[warmup_period:]
 
     return obs_data.T #39*18
 

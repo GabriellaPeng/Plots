@@ -8,37 +8,32 @@ from data_process import clr_marker
 from examples.ex_Marks import _clr_marker, _set_ax_marker
 
 
-def bounds_cis(figures, l_poly, npoly, obs_norm, sims, p_sim, save_plot, plot_name):
-    types = plot_name['type']
-    alg = plot_name['alg']
+def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot):
+    ''' {'ncol': [17, 168, 175] , 'nrow': 4}'''
 
     l_pol = l_poly['ncol']
     nrow = l_poly['nrow']
+    ncol = len(l_pol)
 
-    if isinstance(p_sim, dict):
-        ncol = len(l_pol)
-    else:
-        ncol = [len(l_pol) if nrow == 1 else 1][0]
-
-    def _ind_p(c, r, sims=sims, p_sim=p_sim):
-        if isinstance(p_sim, dict):
-            gofs = list(sims)
-            ind_p = npoly.index(l_pol[c])
+    def _ind_p(c, r, res=res, sims=sims):
+        if nrow > 1:
+            gofs = list(res)
             p = l_pol[c]
+            ind_p = npoly.index(p)
             ind_ax = [c, r, ncol, nrow]
-            sims = sims[gofs[r]][:, :, ind_p]
-            p_sim = p_sim[gofs[r]][:, ind_p]
+            p_res = res[gofs[r]][:, :, ind_p]
+            p_sim = sims[gofs[r]][:, ind_p]
             gof = gofs[r]
         else:
-            ind_p = npoly.index(l_pol[c + r])
             p = l_pol[c + r]
-            ind_ax = [c, r, ncol]
-            sims = sims[:, :, ind_p]
-            p_sim = p_sim[:, ind_p]
+            ind_p = npoly.index(p)
+            ind_ax = [c, r, ncol, nrow]
+            p_res = res[:, :, ind_p]
+            p_sim = sims[:, ind_p]
             gof = ''
-        return ind_p, p, ind_ax, sims, p_sim, gof
+        return ind_p, p, ind_ax, p_res, p_sim, gof
 
-    if 'bounds' in figures:
+    if 'bounds' == figures:
         plt.ioff()
         fig1 = plt.figure(figsize=(4 * 2 * ncol, 4 * nrow), constrained_layout=False)
         gs1 = GridSpec(ncols=ncol, nrows=nrow, wspace=0.0, hspace=0.0)
@@ -49,14 +44,14 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, sims, p_sim, save_plot, plot_na
 
         for c in range(ncol):
             for r in range(nrow):
-                ind_p, p, ind_ax, sims, p_sim, gof= _ind_p(c, r)
-                param_uncertainty_bounds(sims, obs_norm[:, ind_p], p, p_sim,
+                ind_p, p, ind_ax, p_res, p_sim, gof= _ind_p(c, r)
+                param_uncertainty_bounds(p_res, obs_norm[:, ind_p], p, p_sim,
                                          ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax, ylabel=gof)
 
-        fig1.savefig(save_plot + f'Bs.{types[:3]}.{alg}.png')
+        fig1.savefig(save_plot + 'Bs.png')
         plt.close(fig1)
 
-    elif 'cis' in figures:
+    elif 'cis' == figures:
         plt.ioff()
         fig2 = plt.figure(figsize=(4 * 2 * ncol, 4 * nrow), constrained_layout=False)
         gs2 = GridSpec(ncols=ncol, nrows=nrow, wspace=0.0, hspace=0.0)
@@ -67,43 +62,32 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, sims, p_sim, save_plot, plot_na
 
         for c in range(ncol):
             for r in range(nrow):
-                ind_p, p, ind_ax, sims, p_sim, gof= _ind_p(c, r)
-                plot_ci(sims, obs_norm[:, ind_p], f'Poly-{p}', ax=vars()[f'ax2{r}{c}'],
+                ind_p, p, ind_ax, res, sim, gof= _ind_p(c, r)
+                plot_ci(res, obs_norm[:, ind_p], f'Poly-{p}', ax=vars()[f'ax2{r}{c}'],
                         ind_ax=ind_ax, ylabel=gof)
-        fig2.savefig(save_plot + f'CI.{types[:3]}.{alg}.png')
+        fig2.savefig(save_plot + 'CI.png')
         plt.close(fig2)
 
 
-def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_sim, l_poly=None,
-                     figures=['cis'], alg=None):
+def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly=None,
+                     figures=['bounds']):
     '''l_poly = {nrow: int, ncol:[list of list]}'''
 
     sns.set(style="darkgrid")
+
     if l_poly is not None:
-        if 'weighted_res' not in dict_sim:
-            type = 'weighted_res'
-            p_sim = {gof: v['top_weighted_sim'] for gof, v in dict_sim_norm.items()}
-            sims = {gof: v['weighted_res'] for gof, v in dict_sim.items()}
-
-            bounds_cis(figures, l_poly, npoly, obs_norm, sims, p_sim, save_plot, {'type': type, 'alg': alg})
-
+        if l_poly['nrow']> 1:
+            dict_res ={gof: v for gof, d_v in dict_res.items() for type, v in d_v.items()}
+            dict_sim_norm = {gof: v for gof, d_v in dict_sim_norm.items() for type, v in d_v.items()}
         else:
-            for type, sims in dict_sim.items():
-                if type == 'all_res':
-                    p_sim = dict_sim_norm['weighted_sim']
-                elif type == 'weighted_res':
-                    p_sim = dict_sim_norm['top_weighted_sim']
+            dict_res = [v for k, v in dict_res.items()][0]
+            dict_sim_norm = [v for k, v in dict_sim_norm.items()][0]
 
-                bounds_cis(figures, l_poly, npoly, obs_norm, sims, p_sim, save_plot, {'type': type, 'alg': alg})
-
+        for fig in figures:
+            bounds_cis(fig, l_poly, npoly, obs_norm, dict_res, dict_sim_norm, save_plot)
 
     else:
-        for type, sims in dict_sim.items():
-            if type == 'all_res':
-                p_sim = dict_sim_norm['weighted_sim']
-            elif type == 'weighted_res':
-                p_sim = dict_sim_norm['top_weighted_sim']
-
+        for type, p_sim in dict_res.items():
             for ind_p, p in enumerate(npoly):
 
                 if 'bounds' in figures:
@@ -112,24 +96,23 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_sim, l_poly
                     gs1 = GridSpec(ncols=1, nrows=1, wspace=0.0, hspace=0.0)
                     ax1 = fig1.add_subplot(gs1[0])
 
-                    param_uncertainty_bounds(sims[:, :, ind_p], obs_norm[:, ind_p], p, p_sim[:, ind_p],
-                                             ax=ax1, ind_ax=[0])
-                    fig1.savefig(save_plot + f'bounds.{type[:3]}.{p}.png', dpi=400)
+                    param_uncertainty_bounds(p_sim[:, :, ind_p], obs_norm[:, ind_p], p, p_sim[:, ind_p],
+                                             ax=ax1, ind_ax=[0])                                        #TODO
+                    fig1.savefig(save_plot + f'{[i for i in figures]}_{p}.png', dpi=400)
                     plt.close(fig1)
 
                 elif 'cis' in figures:
                     plt.ioff()
                     fig2 = plt.figure(figsize=(4 * 2 * 1, 4), constrained_layout=False)
                     gs2 = GridSpec(ncols=1, nrows=1, wspace=0.0, hspace=0.0)
-
                     ax2 = fig2.add_subplot(gs2[0])
 
-                    plot_ci(sims[:, :, ind_p], obs_norm[:, ind_p], f'Poly-{p}', ax=ax2, ind_ax=[0])
+                    plot_ci(p_sim[:, :, ind_p], obs_norm[:, ind_p], f'Poly-{p}', ax=ax2, ind_ax=[0])
                     fig2.savefig(save_plot + f'ci.{type[:3]}_{p}.png', dpi=400)
                     plt.close(fig2)
 
 
-def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None, ylabel=None):
+def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None, ylabel=None, warmup_period=None):
     q5, q25, q75, q95 = [], [], [], []
     for t in range(len(observations)):
         q5.append(np.percentile(sim_res[:, t], 2.5))
@@ -150,9 +133,12 @@ def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=N
     yrange.insert(0, '')
 
     ax.set_yticks(np.arange(-6, 9, 2))
-    ax.set_xticks(np.arange(0, len(observations), 2))
+    ax.set_xticks(np.arange(0, len(observations)+1, 2))
 
-    xticklabel = np.arange(2, len(observations) + 2, 2)
+    if warmup_period==None:
+        warmup_period = 1
+    xticklabel = np.arange(warmup_period, len(observations) + warmup_period, 2)
+
     ind_ax_set(ind_ax, yrange, 15, xticklabel, 10, ax, ylabel=ylabel)
 
     ax.legend(loc='upper left', prop={'size': 10})
