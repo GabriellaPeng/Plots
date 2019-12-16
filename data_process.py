@@ -162,6 +162,7 @@ def proc_soil_canal_mask(soil_canal, soil_canal_mask, gen_mask=False):
 def proc_data_to_soil_canal(data, soil_canal):
     proc_data = np.zeros([len(data), len(soil_canal)])
     polys = list(np.sort([j for i in list(soil_canal.values()) for j in i]))
+
     for i, (sc, d_poly) in enumerate(soil_canal.items()):
         proc_data[:, i] = np.average(np.take(data[:, ], [polys.index(j) for j in d_poly], axis=1), axis=1)
 

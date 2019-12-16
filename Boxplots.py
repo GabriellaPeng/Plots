@@ -37,12 +37,12 @@ def dist_parameters(data, save=None, kind='box'):
     #             vars()[f'ax{i}'].axvline(m[1], ls='--', color=colors[1])
 
     if save is not None:
-        g.savefig(save + f"{kind}.png", dpi=500)
+        g.savefig(save + ".png", dpi=500)
     plt.clf()
 
 
 
-def boxplot_gof_loc(calib_data, valid_data, soil_canal_mask, save=None):
+def boxplot_gof_loc(calib_data, valid_data, soil_canal_mask, save=None, **kwargs):
     '''sim_data={gof: np.array}'''
 
     min_gof=['nse', 'mic']
@@ -66,16 +66,15 @@ def boxplot_gof_loc(calib_data, valid_data, soil_canal_mask, save=None):
     for gof, v_data in valid_data.items():
 
         # Set the axes ranges and axes labels
-        if gof == 'mic':
-            ylim, step = [np.nanmin(v_data)-0.05, 1.0 + 0.1], 0.1
-        else:
-            ylim, step= [-300, 0], 50
+        if kwargs is not None and 'ylims' in kwargs:
+            ylim = kwargs['ylims']
+            step = np.round((ylim[1] - ylim[0])/10, 2)
 
         fig.canvas.set_window_title(f'{gof.upper()} Boxplot')
         fig.subplots_adjust(left=0.075, right=0.95, top=0.9, bottom=0.25)
 
-        bp = ax1.boxplot(v_data, notch=0, sym='.', positions=np.asarray(xpos), whis=[5, 95])
-        # whiskers.append(min([i[0] for i in [item.get_ydata() for item in bp['whiskers']]]))
+        medianprops = dict(linestyle='--', linewidth=1.0, color='w', alpha=0.5)
+        bp = ax1.boxplot(v_data, notch=0, sym='.', positions=np.asarray(xpos), whis=[5, 95], medianprops=medianprops)
 
         # Add a horizontal grid to the plot
         ax1.yaxis.grid(True, linestyle='-', which='major', color='lightgrey', alpha=0.5)
@@ -112,44 +111,24 @@ def boxplot_gof_loc(calib_data, valid_data, soil_canal_mask, save=None):
                 else:
                     ax1.add_patch(Polygon(box_coords, facecolor=color[i]))
 
-            # Now draw the median lines back over what we just filled in
-            med = bp['medians'][i]
-            medianX = []
-            medianY = []
-            for j in range(2):
-                medianX.append(med.get_xdata()[j])
-                medianY.append(med.get_ydata()[j])
-                l_median = ax1.plot(medianX, medianY, 'k')
-            medians[i] = medianY[0]
-
             # add mean
-            l_mean = ax1.plot(np.average(med.get_xdata()), np.average(v_data[:, i]), color='w', marker='*')
-
-        for tick, label in zip(range(num_boxes), ax1.get_xticks()):
-            ax1.text(label, .95, xpol[tick], transform=ax1.get_xaxis_transform(),
-                     horizontalalignment='center', size='small', color=color[tick])
+            med = bp['medians'][i]
+            ax1.plot(np.average(med.get_xdata()), np.average(v_data[:, i]), color='w', marker='*')
 
         # the optimal run in calibration
-        l_opt = ax1.axhline(np.mean(v_data[opt_val]), ls="dashed", color='r')
+        if gof !='aic':
+            ax1.axhline(np.mean(v_data[opt_val]), ls="dashed", color='r')
 
         ax1.set_xlim(xlim[0], xlim[1])
         # ax1.set_xticks([np.average(i) for i in l_xpol])
         ax1.set_xticklabels([j for i in l_xpol for j in i])
-        ax1.set_xticklabels(xlabels, rotation=45, fontsize=14)
+        ax1.set_xticklabels(xlabels, fontsize=14) #rotation=45,
 
-        if gof != 'mic':
-            ax1.set_ylim(ylim[0], ylim[1])
-            ax1.set_yticks(np.arange(ylim[0], ylim[1], step))
+        ax1.set_ylim(ylim[0], ylim[1])
+        ax1.set_yticks(np.arange(ylim[0], ylim[1], step))
 
         ax1.legend(frameon=False, ncol=len(soil_canal_mask), bbox_to_anchor=(0.95, -0.1))
-        # add a basic legend
-        # pos = [i for i in np.flip(np.arange(0.01, 0.7, 0.05))][:len([i[0] + i[i.index(',') + 2] for i in s_cnl_msk])] #pos=0.035 is right
-        # for i, v in enumerate([i[0] + i[i.index(',') + 2] for i in s_cnl_msk]):
-        #     fig.text(0.97, pos[i], f'{v}',
-        #              backgroundcolor=rbg[i], color='white', weight='roman', size='small', bbox={'pad': 3.5, 'ec':rbg[i], 'fc':rbg[i]})
 
-        # fig.legend((l_median[0], l_mean[0], l_opt), ('Median', 'Mean', 'Optimum calibrated value'),
-        #            bbox_to_anchor=(0.9, 0.1), facecolor='#CACFD2', fontsize='x-small')
         if save:
             fig.savefig(save, dpi=500, bbox_inches='tight')
         plt.close(fig)

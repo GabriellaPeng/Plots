@@ -22,9 +22,12 @@ def load_calib_gof_data(algorithms, gofs, res_path=res_path, tops=False):
     for gof in gofs:
         for m in algorithms:
             calib_likes = np.load(res_path + f'{m}/calib_{gof}_PrmProb.npy', allow_pickle=True).tolist()['likes']
-            dict_gof[gof][m] = calib_likes
-    if tops:
-        dict_gof = process_calib_likes(dict_gof, algorithms, gofs, top_percent=0.2)
+
+            if tops:
+                mask = np.load(res_path + f'{m}/calib_{gof}.npy', allow_pickle=True).tolist()['buenas']
+                dict_gof[gof][m] = np.take(calib_likes, mask)
+            else:
+                dict_gof[gof][m] = calib_likes
 
     return dict_gof
 
@@ -122,7 +125,7 @@ def load_theil_data(algorithms, gofs, res_path=res_path, variable=variable):
             type = behavior_gofs['type']
 
         for m in algorithms:
-            a = np.load(res_path + f'{m}/valid_{gof}.npy', allow_pickle=True).tolist()[variable][type][gof]['Theil'][type_sim]
+            a = np.load(res_path + f'{m}/valid_{gof}41.npy', allow_pickle=True).tolist()[variable][type][gof]['Theil'][type_sim]
             theil_data[m][gof] = a
 
     return theil_data

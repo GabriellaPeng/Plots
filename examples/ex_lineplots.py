@@ -15,7 +15,7 @@ if plot_sim:
     type_sim = 'top_weighted_sim'
     type_res = 'weighted_res'
     figure = ['bounds']
-    soil_canal = 'canal'
+    soil_canal = 'soil'
     poly_calib_valid  = 'valid_poly'
     warmup_period = None
 
@@ -50,7 +50,7 @@ if plot_sim:
             if l_poly['nrow'] > 1:
                 sim_norm = {gof: {type_sim: data[gof][al][type_sim]} for gof in gofs}
                 res_dt = {gof: {type_res: data[gof][al][type_res]} for gof in gofs}
-                plot_top_sim_obs(sim_norm, obs_norm, npoly, plot_path + f'{al}/{name}_', res_dt,
+                plot_top_sim_obs(sim_norm, obs_norm, npoly, plot_path + f'{al}/N{name}', res_dt,
                                  l_poly=l_poly, figures=figure)
             else:
                 for gof in gofs:

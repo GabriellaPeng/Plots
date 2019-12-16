@@ -48,7 +48,7 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot):
                 param_uncertainty_bounds(p_res, obs_norm[:, ind_p], p, p_sim,
                                          ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax, ylabel=gof)
 
-        fig1.savefig(save_plot + 'Bs.png')
+        fig1.savefig(save_plot + '.png')
         plt.close(fig1)
 
     elif 'cis' == figures:
