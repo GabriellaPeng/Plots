@@ -151,11 +151,13 @@ def proc_soil_canal_mask(soil_canal, soil_canal_mask, gen_mask=False):
 
     elif soil_canal == 'all':
         soil_canal = {sc[0] + sc[sc.find(',') + 2]: vals for sc, vals in soil_canal_mask.items()}
-        return soil_canal
 
-    if gen_mask and soil_canal!='all':
+    if gen_mask and soil_canal != 'all':
         mask = {s: [i+0.5] for i, s in enumerate(soil_canal)}
         return soil_canal, mask
+    else:
+        return soil_canal
+
 
 
 

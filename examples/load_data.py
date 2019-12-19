@@ -125,7 +125,7 @@ def load_theil_data(algorithms, gofs, res_path=res_path, variable=variable):
             type = behavior_gofs['type']
 
         for m in algorithms:
-            a = np.load(res_path + f'{m}/valid_{gof}41.npy', allow_pickle=True).tolist()[variable][type][gof]['Theil'][type_sim]
+            a = np.load(res_path + f'{m}/valid_{gof}_Norm_Theil.npy', allow_pickle=True).tolist()[variable][type][gof]['Theil'][type_sim]
             theil_data[m][gof] = a
 
     return theil_data
