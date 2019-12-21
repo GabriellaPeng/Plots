@@ -1,6 +1,6 @@
 import numpy as np
 from config import construct_df
-from Paths import plot_path, valid_polygon
+from Paths import plot_path, valid_polygon, calib_polygon
 from data_process import equal_len_calib_valid, _soil_canal, proc_soil_canal_mask, proc_data_to_soil_canal
 from examples.load_data import load_calib_gof_data, load_valid_likes, load_valid_res, load_obs_data
 from Boxplots import dist_parameters, boxplot_gof_loc

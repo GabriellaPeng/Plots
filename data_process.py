@@ -159,8 +159,6 @@ def proc_soil_canal_mask(soil_canal, soil_canal_mask, gen_mask=False):
         return soil_canal
 
 
-
-
 def proc_data_to_soil_canal(data, soil_canal):
     proc_data = np.zeros([len(data), len(soil_canal)])
     polys = list(np.sort([j for i in list(soil_canal.values()) for j in i]))
