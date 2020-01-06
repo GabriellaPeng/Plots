@@ -59,7 +59,6 @@ def plot_theil(methods, data, polys, gof, soil_canal_mask, soil_canal='all', sav
                 hatch='0',
                 label=clabel)
 
-
     if soil_canal != 'all':
         xticks = [f'{sc}' for sc in soil_canal_mask]
         N = len(soil_canal_mask)
@@ -81,11 +80,12 @@ def plot_theil(methods, data, polys, gof, soil_canal_mask, soil_canal='all', sav
             _end_plot(pos, xticks, bar_position, name, save)
 
 
-def _end_plot(pos, xticks, bar_position,name, save):
+def _end_plot(pos, xticks, bar_position,name, save, hlines=True):
     pos_tick = [np.average([v[i] for m, v in bar_position.items()]) for i in range(len(xticks))]
     plt.xticks(pos_tick, xticks, fontsize=16)
     left, right = plt.xlim()
-    plt.hlines(y=0.5, xmin=left, xmax=right, linestyles='dashed', linewidth=4)
+    if hlines:
+        plt.hlines(y=0.5, xmin=left, xmax=right, linestyles='dashed', linewidth=4)
     # plt.ylabel('Errors')
     sns.despine()
 

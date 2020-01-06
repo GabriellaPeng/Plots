@@ -1,16 +1,14 @@
 import os
 
 variable = 'mds_Watertable depth Tinamit'
-month = 'nov'
+month = 'dec'
 
 if os.name == 'posix':
     root_path = "/Users/gabriellapeng/OneDrive - Concordia University - Canada/gaby/pp2_data/calib"
 
     res_path = root_path + f'/npy_res/{month}/'
 
-    plot_path = root_path + '/plot/'
-
-    sim_path = root_path + '/simular/'
+    plot_path = root_path + f'/plot/{month}/'
 
     calib_polygon = root_path + '/valid.csv'
 
@@ -21,9 +19,7 @@ else:
 
     res_path = root_path + f'\\npy_res\\{month}\\'
 
-    plot_path = root_path + '\\plot\\'
-
-    sim_path = root_path + '\\simular\\'
+    plot_path = root_path + f'\\plot\\{month}\\'
 
     calib_polygon = root_path + '\\valid.csv'
 

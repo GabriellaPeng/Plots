@@ -4,7 +4,11 @@
     <list default="true" id="fbb60b8f-4993-413f-bbb3-af16d481c510" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Histograms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Histograms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/Paths.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_process.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/ex_boxplots.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/ex_boxplots.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/ex_lineplots.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/ex_lineplots.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/ex_paramplots.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/ex_paramplots.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/ex_theil_hist.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/ex_theil_hist.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/examples/load_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/load_data.py" afterDir="false" />
     </list>
@@ -17,37 +21,70 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/ex_boxplots.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#17#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/ex_lineplots.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="17" column="14" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="14" />
+            <state relative-caret-position="136">
+              <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
               <folding>
-                <element signature="e#0#60#0" expanded="true" />
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/load_data.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="113" selection-start-line="113" selection-end-line="113" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/ex_boxplots.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/ex_theil_hist.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="18" column="10" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+            <state relative-caret-position="374">
+              <caret line="22" column="71" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
               <folding>
-                <element signature="e#0#33#0" expanded="true" />
+                <element signature="e#0#27#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Histograms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="27">
+              <caret line="61" selection-start-line="61" selection-end-line="61" />
+              <folding>
+                <element signature="e#343#1934#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Paths.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -55,22 +92,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
+            <state relative-caret-position="86">
+              <caret line="141" column="32" selection-start-line="141" selection-start-column="32" selection-end-line="141" selection-end-column="32" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Histograms.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="569">
-              <caret line="94" column="12" selection-start-line="94" selection-start-column="12" selection-end-line="94" selection-end-column="12" />
-              <folding>
-                <element signature="e#1008#1158#0" />
               </folding>
             </state>
           </provider>
@@ -87,37 +112,20 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sim_norm</find>
-      <find>water</find>
-      <find>proc_sim</find>
-      <find>pcentl</find>
-      <find>xarray</find>
-      <find>np</find>
-      <find>MC</find>
-      <find>ind</find>
-      <find>load_calib_gof_data</find>
-      <find>tips</find>
-      <find>np.l</find>
-      <find>sns</find>
-      <find>col_names['</find>
-      <find>p_sim</find>
-      <find>valid_data</find>
-      <find>sim_data</find>
-      <find>gof</find>
-      <find>leg</find>
-      <find>legend</find>
-      <find>maxi</find>
-      <find>vals</find>
+      <find>/</find>
+      <find>root_path + &quot;</find>
+      <find>root_path + '</find>
       <find>valid_polygon</find>
-      <find>soil_canal_mask</find>
-      <find>data</find>
-      <find>41</find>
-      <find>soil_canal</find>
-      <find>gen_mask</find>
-      <find>pos</find>
+      <find>process_calib_likes</find>
+      <find>np.load</find>
+      <find>type_res</find>
+      <find>weighted_res</find>
     </findStrings>
     <replaceStrings>
-      <replace>'</replace>
+      <replace>root_path + &quot;</replace>
+      <replace>top_res</replace>
+      <replace>root_path + '</replace>
+      <replace>\\</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -133,35 +141,30 @@
         <option value="$PROJECT_DIR$/examples/parameter_data.py" />
         <option value="$PROJECT_DIR$/examples/likes_data.py" />
         <option value="$PROJECT_DIR$/examples/gof_data.py" />
+        <option value="$PROJECT_DIR$/examples/test.py" />
         <option value="$PROJECT_DIR$/examples/data_process.py" />
         <option value="$PROJECT_DIR$/Paths.conf" />
-        <option value="$PROJECT_DIR$/statistics.py" />
-        <option value="$PROJECT_DIR$/examples/ex_Marks.py" />
-        <option value="$PROJECT_DIR$/Paths.py" />
-        <option value="$PROJECT_DIR$/BarPlots.py" />
-        <option value="$PROJECT_DIR$/venv/Histograms.py" />
-        <option value="$PROJECT_DIR$/examples/ex_scatterplots.py" />
-        <option value="$PROJECT_DIR$/ScatterPlots.py" />
-        <option value="$PROJECT_DIR$/ParameterPlots.py" />
-        <option value="$PROJECT_DIR$/examples/ex_paramplots.py" />
-        <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/examples/test.py" />
-        <option value="$PROJECT_DIR$/LinePlots.py" />
-        <option value="$PROJECT_DIR$/examples/ex_lineplots.py" />
         <option value="$PROJECT_DIR$/Boxplots.py" />
-        <option value="$PROJECT_DIR$/examples/ex_boxplots.py" />
-        <option value="$PROJECT_DIR$/examples/load_data.py" />
+        <option value="$PROJECT_DIR$/statistics.py" />
+        <option value="$PROJECT_DIR$/LinePlots.py" />
+        <option value="$PROJECT_DIR$/BarPlots.py" />
+        <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/data_process.py" />
+        <option value="$PROJECT_DIR$/examples/ex_boxplots.py" />
+        <option value="$PROJECT_DIR$/examples/ex_paramplots.py" />
+        <option value="$PROJECT_DIR$/examples/ex_lineplots.py" />
+        <option value="$PROJECT_DIR$/Paths.py" />
+        <option value="$PROJECT_DIR$/examples/load_data.py" />
         <option value="$PROJECT_DIR$/Histograms.py" />
         <option value="$PROJECT_DIR$/examples/ex_theil_hist.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="114" />
-    <option name="y" value="23" />
-    <option name="width" value="1028" />
-    <option name="height" value="853" />
+    <option name="x" value="477" />
+    <option name="y" value="145" />
+    <option name="width" value="1426" />
+    <option name="height" value="940" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -252,28 +255,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_lineplots" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Plot" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/examples" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/examples/ex_lineplots.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="ex_scatterplots" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex_paramplots" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Plot" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -340,17 +322,15 @@
       <item itemvalue="Python.Plot" />
       <item itemvalue="Python.test" />
       <item itemvalue="Python.ex_boxplots" />
-      <item itemvalue="Python.ex_lineplots" />
+      <item itemvalue="Python.ex_paramplots" />
       <item itemvalue="Python.ex_theil_hist" />
-      <item itemvalue="Python.ex_scatterplots" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.ex_theil_hist" />
+        <item itemvalue="Python.ex_paramplots" />
         <item itemvalue="Python.ex_boxplots" />
-        <item itemvalue="Python.ex_lineplots" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.ex_scatterplots" />
       </list>
     </recent_temporary>
   </component>
@@ -365,63 +345,21 @@
       <option name="presentableId" value="Default" />
       <updated>1570198945138</updated>
     </task>
-    <task id="LOCAL-00001" summary="Update 0.2">
-      <created>1570561976233</created>
+    <task id="LOCAL-00001" summary="update 0.1">
+      <created>1570420234771</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1570561976233</updated>
+      <updated>1570420234771</updated>
     </task>
-    <task id="LOCAL-00002" summary="Update 0.3">
-      <created>1570721672445</created>
+    <task id="LOCAL-00002" summary="update 0.3">
+      <created>1576956926419</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1570721672446</updated>
+      <updated>1576956926419</updated>
     </task>
-    <task id="LOCAL-00003" summary="Update 0.4">
-      <created>1571079073970</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1571079073970</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Update 0.4">
-      <created>1571079133542</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1571079133542</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Update 0.5">
-      <created>1571974653094</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1571974653094</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Update 0.6">
-      <created>1575686954267</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1575686954268</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Update 0.7">
-      <created>1576085187148</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1576085187148</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Update 0.8">
-      <created>1576520743493</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1576520743494</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -434,121 +372,50 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="475" y="23" width="1028" height="853" extended-state="0" />
+    <frame x="1359" y="146" width="1426" height="942" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20081136" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15706052" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49881983" weight="0.32984293" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6599424" weight="0.44678056" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.88229924" weight="0.49014455" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32880098" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.45611867" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32791328" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49951124" weight="0.32866243" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32885906" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32885906" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49951315" weight="0.32885906" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.11770073" side_tool="true" weight="0.38743454" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.75027144" weight="0.325887" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50146055" side_tool="true" weight="0.32885906" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49853945" weight="0.32885906" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="R Graphics" order="3" />
       <window_info anchor="right" id="R Packages" order="4" />
     </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18065694" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49881983" weight="0.32984293" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6599424" weight="0.44764397" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.88229924" visible="true" weight="0.38743454" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32791328" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49951124" weight="0.32866243" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49951315" weight="0.32885906" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.11770073" side_tool="true" visible="true" weight="0.38743454" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.75027144" weight="0.32655826" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="R Graphics" order="3" />
-      <window_info anchor="right" id="R Packages" order="4" />
-    </layout-to-restore>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
       <path value="$PROJECT_DIR$" />
     </ignored-roots>
-    <MESSAGE value="Update 0.2" />
-    <MESSAGE value="Update 0.3" />
-    <MESSAGE value="Update 0.4" />
-    <MESSAGE value="Update 0.5" />
-    <MESSAGE value="Update 0.6" />
-    <MESSAGE value="Update 0.7" />
-    <MESSAGE value="Update 0.8" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update 0.8" />
+    <MESSAGE value="update 0.1" />
+    <MESSAGE value="update 0.3" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 0.3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LinePlots.py</url>
-          <line>176</line>
-          <option name="timeStamp" value="174" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Boxplots.py</url>
-          <line>39</line>
-          <option name="timeStamp" value="178" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Boxplots.py</url>
-          <line>24</line>
-          <option name="timeStamp" value="179" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Boxplots.py</url>
-          <line>17</line>
-          <option name="timeStamp" value="180" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LinePlots.py</url>
-          <line>98</line>
-          <option name="timeStamp" value="319" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LinePlots.py</url>
-          <line>50</line>
-          <option name="timeStamp" value="323" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LinePlots.py</url>
-          <line>207</line>
-          <option name="timeStamp" value="325" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/LinePlots.py</url>
-          <line>141</line>
-          <option name="timeStamp" value="327" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/examples/test.py</url>
-          <line>13</line>
-          <option name="timeStamp" value="338" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Boxplots.py</url>
-          <line>131</line>
-          <option name="timeStamp" value="395" />
+          <line>10</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Histograms.py</url>
-          <line>70</line>
-          <option name="timeStamp" value="426" />
+          <line>71</line>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -563,141 +430,115 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
-        <expression-string>u_data = {u: np.zeros(len(soil_canal_mask)) for u in data[m][gof]}
-for i, (sc, l_poly) in enumerate(soil_canal_mask.items()):
-    poly_ind = [np.where(np.asarray(polys) == p)[0][0] for p in l_poly]
-    for u in data[m][gof]:
-        u_data[u][i] = np.average(np.take(data[m][gof][u], poly_ind))</expression-string>
+        <expression-string>np.load(res_path + f'{m}/valid_{gof}.npy', allow_pickle=True).tolist()[variable][type][gof][
+                'Theil'][type_sim]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>[np.arange(xpos[xpol.index(l_p[0])], xpos[xpol.index(l_p[0])] + len(l_p) * 0.5, 0.5) for j, l_p in
-              soil_canal_mask.items()]</expression-string>
+        <expression-string>np.load(res_path + f'{m}/valid_{gof}.npy', allow_pickle=True).tolist()[variable][type][gof][
+               'Theil'][type_sim]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>l_xpol = [np.arange(xpos[xpol.index(l_p[0])], xpos[xpol.index(l_p[0])] + len(l_p) * 0.5, 0.5) for j, l_p in
-              soil_canal.items()]</expression-string>
+        <expression-string>s_cnl = _soil_canal(list(load_obs_data(calib_polygon)))
+s_cnl, mask = proc_soil_canal_mask('canal', s_cnl, gen_mask=True)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>param_uncertainty_bounds(res, obs_norm[:, ind_p], p, sim,
-                                         ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax, ylabel=gof)</expression-string>
+        <expression-string>s_cnl = _soil_canal(list(load_obs_data(calib_polygon)))
+s_cnl, mask = proc_soil_canal_mask(soil_canal, s_cnl, gen_mask=True)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>def retrieve_name(var):
-    import inspect
-    for fi in reversed(inspect.stack()):
-        names = [var_name for var_name, var_val in fi.frame.f_locals.items() if var_val is var]
-        if len(names) &gt; 0:
-            return names[0]</expression-string>
+        <expression-string>s_cnl = _soil_canal(list(load_obs_data(valid_polygon)))
+s_cnl, mask = proc_soil_canal_mask(soil_canal, s_cnl, gen_mask=True)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>clr_pal = {m.upper(): clr for m, clr in clr_marker(mtd_clr=True).items()}
+        <expression-string>import os
+import numpy as np
+filepath = os.isos.path.expanduser('~/OneDrive\ -\ Concordia\ University\ -\ Canada/gaby/pp2_data/calib')
 
-g = sns.FacetGrid(data, row=&quot;Parameter&quot;, col='Canal Pos', hue=hue, height=4, aspect=.5, palette=clr_pal)
-g.map(plt.scatter, &quot;Canal Pos&quot;, 'Parameter Vals', alpha=.5)</expression-string>
+a = np.load(filepath+'/Valids.npy').tolist()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>g = sns.FacetGrid(data, row=&quot;Parameter&quot;, col='Canal Pos', hue=hue, height=4, aspect=.5, palette=clr_pal)
-g.map(plt.scatter, &quot;Canal Pos&quot;, 'Parameter Vals', alpha=.5)</expression-string>
+        <expression-string>import os
+import numpy as np
+filepath = os.path.expanduser('~/OneDrive\ -\ Concordia\ University\ -\ Canada/gaby/pp2_data/calib')
+
+a = np.load(filepath+'/Valids.npy').tolist()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>g.map(plt.scatter, &quot;Canal Pos&quot;, 'Parameter Vals', alpha=.5,
-              palette={m.upper(): clr for m, clr in clr_marker(mtd_clr=True).items()})</expression-string>
+        <expression-string>from os.path import  expanduser
+import numpy as np
+filepath = os.path.expanduser('~/OneDrive\ -\ Concordia\ University\ -\ Canada/gaby/pp2_data/calib')
+
+a = np.load(filepath+'/Valids.npy').tolist()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>g = sns.FacetGrid(data, row=&quot;Parameter&quot;, hue=hue,
-                  palette={m.upper(): clr for m, clr in clr_marker(mtd_clr=True).items()})</expression-string>
+        <expression-string>from os.path import  expanduser
+import numpy as np
+filepath = os.path.expanduser('~/OneDrive\ -\ Concordia\ University\ -\ Canada/gaby/pp2_data/calib')
+
+a = np.load(filepath+'/Valid.npy').tolist()</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-    </expressions>
-    <expressions id="breakpointCondition">
-      <expression>
-        <expression-string>prms == 'Capacity,p'</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>m=='demcz'</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>m == 'demcz'</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
-    <expressions id="setValue">
-      <expression>
-        <expression-string>&lt;class 'list'&gt;: [17, 22, 36, 50, 71, 76, 77, 94, 125, 130, 164, 168, 172, 174, 175, 178, 185, 187]</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
-        <expression-string>_end_plot(pos, xticks, bar_position, name=soil_canal, save=save)</expression-string>
+        <expression-string>load_theil_data(algorithms, gofs, type_sim=type, calib_valid=calib_valid)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>_plt_bar(bar_position[m], m, ind=methods.index(m))</expression-string>
+        <expression-string>np.where(__py_debug_temp_var_691686827['demcz']['mic']['Uc']&gt;0.5)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>u_data[u][i] = np.average(np.take(data[m][gof][u]), poly_ind)</expression-string>
+        <expression-string>np.where(__py_debug_temp_var_691686827['demcz']['aic']['Uc']&gt;0.5)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>[np.where(np.asarray(polys) == p)[0][0] for p in l_poly]</expression-string>
+        <expression-string>np.where(__py_debug_temp_var_691686827['demcz']['aic']['Us']&gt;0.5)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>{u: np.zeros(len(soil_canal_mask)) for u in data[m][gof]}</expression-string>
+        <expression-string>np.where(__py_debug_temp_var_691686827['demcz']['mic']['Us']&gt;0.5)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>proc_soil_canal_mask(soil_canal, s_cnl)</expression-string>
+        <expression-string>import numpy as np</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>_end_plot(pos, xticks, bar_position, name, save+'a')</expression-string>
+        <expression-string>__py_debug_temp_var_691686827['demcz']['mic']['Us']</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>_plt_bar(bar_position[m], m, ind=methods.index(m), l_poly=l_poly)</expression-string>
+        <expression-string>load_obs_data(valid_polygon)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>{m: np.arange(19)+i*bar_width for i, m in enumerate(['fscabc', 'mle', 'demcz', 'dream'])}</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>{m: np.arange(N)+i*bar_width for i, m in enumerate(['fscabc', 'mle', 'demcz', 'dream'])}</expression-string>
+        <expression-string>[load_obs_data(valid_polygon)][0]</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -713,306 +554,133 @@ g.map(plt.scatter, &quot;Canal Pos&quot;, 'Parameter Vals', alpha=.5)</expressio
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/OneDrive - Concordia University - Canada/gaby/pp2_data/grouped_boxplot.py" />
-    <entry file="file://$PROJECT_DIR$/../Thesis/Plot/venv/lib/python3.6/site-packages/seaborn/algorithms.py" />
-    <entry file="file://$PROJECT_DIR$/../Thesis/Plot/venv/lib/python3.6/site-packages/numpy/lib/function_base.py" />
-    <entry file="file://$PROJECT_DIR$/statistics.py">
+    <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        <state relative-caret-position="340">
+          <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Thesis/Plot/venv/lib/python3.6/site-packages/matplotlib/axes/_base.py" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="308" selection-start-line="308" selection-end-line="308" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharmCE2018.3/python_stubs/507622926/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="5442" column="6" selection-start-line="5442" selection-start-column="6" selection-end-line="5442" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="1740" selection-start-line="1740" selection-end-line="1740" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/ex_Marks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="25" column="29" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/ema_workbench/analysis/cart.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="83" column="18" lean-forward="true" selection-start-line="83" selection-start-column="18" selection-end-line="83" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/ema_workbench/examples/cart_flu_example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="474">
-          <caret line="38" column="34" selection-start-line="38" selection-start-column="27" selection-end-line="38" selection-end-column="34" />
-          <folding>
-            <element signature="e#52#83#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/ema_workbench/em_framework/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="565">
-          <caret line="503" column="6" selection-start-line="503" selection-start-column="6" selection-end-line="503" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/ema_workbench/examples/cart_wcm_example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/ema_workbench/em_framework/evaluators.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/ema_workbench/examples/lake_model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="23" column="45" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
-          <folding>
-            <element signature="e#190#201#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Histograms.py" />
     <entry file="file://$PROJECT_DIR$/BarPlots.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="459">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+    <entry file="file://$PROJECT_DIR$/statistics.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/seaborn/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/seaborn/tests/test_categorical.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="820">
-          <caret line="1353" column="21" selection-start-line="1353" selection-start-column="21" selection-end-line="1353" selection-end-column="21" />
+        <state relative-caret-position="51">
+          <caret line="3" column="40" lean-forward="true" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="40" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#417#467#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/numpy/lib/histograms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="779" selection-start-line="779" selection-end-line="779" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/seaborn/axisgrid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="217" column="40" selection-start-line="217" selection-start-column="30" selection-end-line="217" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/matplotlib/pyplot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="2837" column="4" selection-start-line="2837" selection-start-column="4" selection-end-line="2837" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/ex_paramplots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#0#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ParameterPlots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="23" column="61" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/seaborn/distributions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="864">
-          <caret line="82" column="9" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-79">
-          <caret line="9" column="39" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.2/Frameworks/Python.framework/Versions/3.7/lib/python3.7/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="309" selection-start-line="309" selection-end-line="309" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/matplotlib/patches.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-897">
-          <caret line="965" column="8" selection-start-line="965" selection-start-column="8" selection-end-line="965" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/matplotlib/axes/_axes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="3630" column="19" selection-start-line="3630" selection-start-column="8" selection-end-line="3630" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        <state relative-caret-position="170">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
           <folding>
             <element signature="e#0#46#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LinePlots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="50" column="40" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/matplotlib/axes/_base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="3716" column="8" selection-start-line="3716" selection-start-column="8" selection-end-line="3716" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Paths.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/load_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="122" column="41" lean-forward="true" selection-start-line="122" selection-start-column="41" selection-end-line="122" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Boxplots.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="131" selection-start-line="131" selection-end-line="131" />
+        <state relative-caret-position="51">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+          <folding>
+            <element signature="e#865#913#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LinePlots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="71" column="4" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="4" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/ex_lineplots.py">
+    <entry file="file://$PROJECT_DIR$/examples/ex_paramplots.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="17" column="14" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/examples/ex_boxplots.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="51">
+          <caret line="3" column="51" lean-forward="true" selection-start-line="3" selection-start-column="51" selection-end-line="3" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data_process.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="159" lean-forward="true" selection-start-line="159" selection-end-line="159" />
+        <state relative-caret-position="86">
+          <caret line="141" column="32" selection-start-line="141" selection-start-column="32" selection-end-line="141" selection-end-column="32" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/ex_theil_hist.py">
+    <entry file="file://$PROJECT_DIR$/Paths.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="18" column="10" lean-forward="true" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+        <state relative-caret-position="143">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/ex_lineplots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
           <folding>
-            <element signature="e#0#33#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/ex_boxplots.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/load_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Histograms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="94" column="12" selection-start-line="94" selection-start-column="12" selection-end-line="94" selection-end-column="12" />
+        <state relative-caret-position="27">
+          <caret line="61" selection-start-line="61" selection-end-line="61" />
           <folding>
-            <element signature="e#1008#1158#0" />
+            <element signature="e#343#1934#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/ex_theil_hist.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="71" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>

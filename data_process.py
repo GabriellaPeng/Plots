@@ -167,3 +167,14 @@ def proc_data_to_soil_canal(data, soil_canal):
         proc_data[:, i] = np.average(np.take(data[:, ], [polys.index(j) for j in d_poly], axis=1), axis=1)
 
     return proc_data
+
+
+def ylims(gof,data, algorithms):
+    if gof == 'mic':
+        ymin, ymax = 0.6, 1.0 + 0.05
+    elif gof == 'aic':
+        ymin, ymax = -60, 100
+    else:
+        ymin, ymax = min([np.min(data[gof][al]) for al in algorithms]), max(
+            [np.max(data[gof][al]) for al in algorithms])
+    return ymin, ymax
