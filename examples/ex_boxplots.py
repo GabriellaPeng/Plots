@@ -12,7 +12,7 @@ algorithms = ['fscabc', 'mle', 'demcz', 'dream']
 
 obj_type = 'beh'
 gof_location = True
-calib_valid = 'valid_polys'
+calib_valid = 'valid'
 
 gofs = [beh_gofs + num_gofs if obj_type == 'all' else beh_gofs if obj_type == 'beh' else num_gofs][0]
 
@@ -31,7 +31,7 @@ else:
     soil_canal = 'soil'  # 'soil', 'canal'
     sc_name = ['' if soil_canal == 'all' else soil_canal][0]
 
-    v_data = load_valid_res(algorithms, gofs, gof_loc=True)
+    v_data = load_valid_res(algorithms, gofs, top_res=True)
     s_cnl = _soil_canal(list(load_obs_data(valid_polygon)))  # calib_polygon
     s_cnl, mask = proc_soil_canal_mask(soil_canal, s_cnl, gen_mask=True)
 

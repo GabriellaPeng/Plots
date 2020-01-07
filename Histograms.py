@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from data_process import clr_marker
 
 
-def plot_theil(methods, data, polys, gof, soil_canal_mask, soil_canal='all', save=None):
+def plot_theil(methods, data, polys, gof, soil_canal_mask, soil_canal='all', save=None, Uc_only=True):
     pos = 0
     bar_width = 0.15
     epsilon = .005
@@ -14,6 +14,7 @@ def plot_theil(methods, data, polys, gof, soil_canal_mask, soil_canal='all', sav
 
     def _plt_bar(pos, m, ind, l_poly=None):
         mtd = m.upper()
+
         if ind == 0:
             mlabel = f'{mtd} Um'
             slabel = f'{mtd} Us'
@@ -37,27 +38,34 @@ def plot_theil(methods, data, polys, gof, soil_canal_mask, soil_canal='all', sav
 
         sns.set()
         plt.ioff()
-        plt.bar(pos, u_data['Um'], bar_width,
-                color=clr_marker(mtd_clr=True)[m],
-                label=mlabel)
 
-        plt.bar(pos, u_data['Us'], bar_width - epsilon,
-                bottom=u_data['Um'],
-                alpha=opacity,
-                color='white',
-                edgecolor=clr_marker(mtd_clr=True)[m],
-                linewidth=line_width,
-                hatch='//',
-                label=slabel)
+        if Uc_only:
+            plt.bar(pos, u_data['Uc'], bar_width,
+                    color=clr_marker(mtd_clr=True)[m],
+                    edgecolor=clr_marker(mtd_clr=True)[m],
+                    label=mtd)
+        else:
+            plt.bar(pos, u_data['Um'], bar_width,
+                    color=clr_marker(mtd_clr=True)[m],
+                    label=mlabel)
 
-        plt.bar(pos, u_data['Uc'], bar_width - epsilon,
-                bottom=u_data['Um'] + u_data['Us'],
-                alpha=opacity,
-                color='white',
-                edgecolor=clr_marker(mtd_clr=True)[m],
-                linewidth=line_width,
-                hatch='0',
-                label=clabel)
+            plt.bar(pos, u_data['Us'], bar_width - epsilon,
+                    bottom=u_data['Um'],
+                    alpha=opacity,
+                    color='white',
+                    edgecolor=clr_marker(mtd_clr=True)[m],
+                    linewidth=line_width,
+                    hatch='//',
+                    label=slabel)
+
+            plt.bar(pos, u_data['Uc'], bar_width - epsilon,
+                    bottom=u_data['Um'] + u_data['Us'],
+                    alpha=opacity,
+                    color='white',
+                    edgecolor=clr_marker(mtd_clr=True)[m],
+                    linewidth=line_width,
+                    hatch='0',
+                    label=clabel)
 
     if soil_canal != 'all':
         xticks = [f'{sc}' for sc in soil_canal_mask]
@@ -65,9 +73,10 @@ def plot_theil(methods, data, polys, gof, soil_canal_mask, soil_canal='all', sav
         bar_position = {m: np.arange(N) + i * bar_width for i, m in enumerate(methods)}
 
         for m in methods:
-            _plt_bar(bar_position[m], m, ind=methods.index(m))
+            ind = [0 if Uc_only else methods.index(m)][0]
+            _plt_bar(bar_position[m], m, ind=ind)
 
-        _end_plot(pos, xticks, bar_position, name=soil_canal, save=save)
+        _end_plot(1, xticks, bar_position, soil_canal, save)
 
     else:
         for name, l_poly in soil_canal_mask.items():
@@ -80,19 +89,18 @@ def plot_theil(methods, data, polys, gof, soil_canal_mask, soil_canal='all', sav
             _end_plot(pos, xticks, bar_position, name, save)
 
 
-def _end_plot(pos, xticks, bar_position,name, save, hlines=True):
+def _end_plot(pos, xticks, bar_position,name, save, hlines=False, legend_on=True):
     pos_tick = [np.average([v[i] for m, v in bar_position.items()]) for i in range(len(xticks))]
     plt.xticks(pos_tick, xticks, fontsize=16)
     left, right = plt.xlim()
     if hlines:
-        plt.hlines(y=0.5, xmin=left, xmax=right, linestyles='dashed', linewidth=4)
+        plt.hlines(y=hlines, xmin=left, xmax=right, linestyles='dashed', linewidth=4) # hlines=0.5
     # plt.ylabel('Errors')
     sns.despine()
 
-    pos += 1
-    if pos == 2:
-        plt.legend(bbox_to_anchor=(1.1, 1.1), fontsize=10)
-        plt.savefig(save+f'{name}', dpi=500, bbox_inches='tight')
-    else:
-        plt.savefig(save + f'{name}', dpi=500)
+    if legend_on:
+        pos += 1
+        if pos == 2:
+            plt.legend(fontsize=10, frameon=False) #bbox_to_anchor=(1.1, 1.1),
+            plt.savefig(save+f'{name}', dpi=500, bbox_inches='tight')
     plt.clf()

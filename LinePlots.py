@@ -4,11 +4,11 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-from data_process import clr_marker
-from examples.ex_Marks import _clr_marker, _set_ax_marker
+from data_process import clr_marker, plot_soil_canal
+from examples.ex_Marks import _clr_marker
 
 
-def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot):
+def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_valid, polys):
     ''' {'ncol': [17, 168, 175] , 'nrow': 4}'''
 
     l_pol = l_poly['ncol']
@@ -16,10 +16,11 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot):
     ncol = len(l_pol)
 
     def _ind_p(c, r, res=res, sims=sims):
+        all_poly = plot_soil_canal('canal', 'all', calib_valid)[1]
         if nrow > 1:
             gofs = list(res)
             p = l_pol[c]
-            ind_p = npoly.index(p)
+            ind_p = all_poly.index(p)
             ind_ax = [c, r, ncol, nrow]
             p_res = res[gofs[r]][:, :, ind_p]
             p_sim = sims[gofs[r]][:, ind_p]
@@ -46,9 +47,9 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot):
             for r in range(nrow):
                 ind_p, p, ind_ax, p_res, p_sim, gof= _ind_p(c, r)
                 param_uncertainty_bounds(p_res, obs_norm[:, ind_p], p, p_sim,
-                                         ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax, ylabel=gof)
+                                         ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax, ylabel=gof, polys=polys)
 
-        fig1.savefig(save_plot + '.png')
+        fig1.savefig(save_plot + '.png', dpi=350)
         plt.close(fig1)
 
     elif 'cis' == figures:
@@ -65,12 +66,12 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot):
                 ind_p, p, ind_ax, res, sim, gof= _ind_p(c, r)
                 plot_ci(res, obs_norm[:, ind_p], f'Poly-{p}', ax=vars()[f'ax2{r}{c}'],
                         ind_ax=ind_ax, ylabel=gof)
-        fig2.savefig(save_plot + 'CI.png')
+        fig2.savefig(save_plot + 'CI.png', dpi=350)
         plt.close(fig2)
 
 
 def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly=None,
-                     figures=['bounds']):
+                     figures=['bounds'], calib_valid='valid', polys=None):
     '''l_poly = {nrow: int, ncol:[list of list]}'''
 
     sns.set(style="darkgrid")
@@ -84,7 +85,7 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly
             dict_sim_norm = [v for k, v in dict_sim_norm.items()][0]
 
         for fig in figures:
-            bounds_cis(fig, l_poly, npoly, obs_norm, dict_res, dict_sim_norm, save_plot)
+            bounds_cis(fig, l_poly, npoly, obs_norm, dict_res, dict_sim_norm, save_plot, calib_valid, polys)
 
     else:
         for type, p_sim in dict_res.items():
@@ -112,36 +113,47 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly
                     plt.close(fig2)
 
 
-def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None, ylabel=None, warmup_period=None):
+def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None, ylabel=None, warmup_period=None, polys=None):
     q5, q25, q75, q95 = [], [], [], []
     for t in range(len(observations)):
         q5.append(np.percentile(sim_res[:, t], 2.5))
         q95.append(np.percentile(sim_res[:, t], 97.5))
 
+    if ind_ax[:2] == [0, 0]:
+        bounds_label = '5-95% simulation bound'
+        simul_label = 'Weighted average simulation'
+        obs_label = f'Polygon{poly} observation'
+    elif ind_ax[1] == 0 and polys== 'best':
+        obs_label = f'Polygon {poly} observation'
+        bounds_label, simul_label = None, None
+    else:
+        bounds_label, simul_label, obs_label = None, None, None
     # ax.plot(q5, color='lightblue', linestyle='solid')
     # ax.plot(q95, color='lightblue', linestyle='solid')
     ax.fill_between(np.arange(0, len(q5), 1), list(q5), list(q95), facecolor='lightblue', zorder=0,
-                    linewidth=0, label='5-95% simulation bound', alpha=0.8)
-
-    ax.plot(proc_sim, color=f"{_clr_marker(wt_mu_m=True)['weighted_sim']}", label=f'Weighted average simulation',
+                    linewidth=0, label=bounds_label, alpha=0.8)
+    ax.plot(proc_sim, color=f"{_clr_marker(wt_mu_m=True)['weighted_sim']}", label=simul_label,
             linestyle='dashed')
+    ax.plot(observations, 'r-', label=obs_label)
 
-    ax.plot(observations, 'r-', label=f'Polygon{poly} observation')
-    ax.set_ylim(-6, 9)
+    ylim = (-2, 11)
 
-    yrange = [str(i) for i in np.arange(-4, 9, 2)]
+    ax.set_ylim(*ylim)
+    yrange = [str(i) for i in np.arange(*ylim, 2)]
     yrange.insert(0, '')
 
-    ax.set_yticks(np.arange(-6, 9, 2))
+    ax.set_yticks(np.arange(*ylim, 2))
     ax.set_xticks(np.arange(0, len(observations)+1, 2))
 
     if warmup_period==None:
         warmup_period = 1
+
     xticklabel = np.arange(warmup_period, len(observations) + warmup_period, 2)
 
     ind_ax_set(ind_ax, yrange, 15, xticklabel, 10, ax, ylabel=ylabel)
 
-    ax.legend(loc='upper left', prop={'size': 10})
+    if ind_ax[:2] == [0, 0] or ind_ax[1] == 0:
+        ax.legend(loc='upper left', prop={'size': 8}, frameon=False)
 
 
 def plot_ci(sims, obs, poly, ax, ind_ax=None, ylabel=None):
@@ -203,7 +215,7 @@ def plot_ci(sims, obs, poly, ax, ind_ax=None, ylabel=None):
     #     ax.yaxis.set_major_formatter(plt.NullFormatter())
 
 
-def ind_ax_set(ind_ax, yticklabel, yticksize, xticklabel, xticksize, ax, ylabel, ylabelsize=20):
+def ind_ax_set(ind_ax, yticklabel, yticksize, xticklabel, xticksize, ax, ylabel):
     if len(ind_ax) > 1:
         c, r, nrow = ind_ax[0], ind_ax[1], ind_ax[3]
         if c == 0:

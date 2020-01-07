@@ -77,7 +77,7 @@ def load_valid_likes(algorithms, gofs, res_path=res_path, variable=variable, wei
     return dict_gof
 
 
-def load_valid_res(algorithms, gofs, res_path=res_path, variable=variable, top_weighted_sim=False, gof_loc=False):
+def load_valid_res(algorithms, gofs, res_path=res_path, variable=variable, top_weighted_sim=False, top_res=False):
     dict_gof = {gof: {m: {} for m in algorithms} for gof in gofs}
 
     numerical_gofs = {'gofs': ['nse', 'rmse'], 'type': "multidim"}
@@ -87,8 +87,8 @@ def load_valid_res(algorithms, gofs, res_path=res_path, variable=variable, top_w
         type = [numerical_gofs['type'] if gof in numerical_gofs['gofs'] else behavior_gofs['type']][0]
 
         for m in algorithms:
-            a = np.load(res_path + f'{m}/valid_{gof}41.npy', allow_pickle=True).tolist()[variable][type][gof]
-            if gof_loc:
+            a = np.load(res_path + f'{m}/valid_{gof}.npy', allow_pickle=True).tolist()[variable][type][gof]
+            if top_res:
                 dict_gof[gof][m] = a['likes']['top_res']
             elif top_weighted_sim:
                 dict_gof[gof][m]['top_res'] = a['top_res']
