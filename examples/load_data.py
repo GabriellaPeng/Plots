@@ -94,10 +94,10 @@ def load_calib_param_data(algorithms, gofs, res_path=res_path, tops=False):
 
     for gof in gofs:
         for m in algorithms:
-            mask = np.load(res_path + f'{m}/calib_{gof}.npy', allow_pickle=True).tolist()['buenas']
             calib_params = np.load(res_path + f'{m}/calib_{gof}.npy', allow_pickle=True).tolist()['parameters']
 
             if tops:
+                mask = np.load(res_path + f'{m}/calib_{gof}.npy', allow_pickle=True).tolist()['buenas']
                 calib_params = {prm: np.take(vals, mask, axis=0) for prm, vals in calib_params.items()}
             dict_params[gof][m] = calib_params
 

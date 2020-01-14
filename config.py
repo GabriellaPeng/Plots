@@ -47,16 +47,20 @@ def construct_df(calib_data, valid_data, col_names=['c_v_data', 'Calib/Eval', 'A
     return pd.DataFrame(dfs, columns=col_names), mean_list
 
 
-def construct_param_df(parameter_data, info_c_poly, info_v_polys,
-                       col_names=['Parameter', 'Parameter Vals', 'Algorithm', 'Runs', 'Canal Pos', 'Soil Type', 'Poly',
+def construct_param_df(parameter_data, calib_valid, info_polys,
+                       col_names=['Parameter', 'Parameter Vals', 'Algorithm', 'Runs', 'Canal Position', 'Soil Class', 'Poly',
                                   'C/V Poly']):
 
     algorithms = list(parameter_data)
-    c_poly, v_poly  = info_c_poly[0], info_v_polys[0]
-    c_sc, v_sc = info_c_poly[1], info_v_polys[1]
-    total_sc =  {k1: v1 + v2 for k1, v1 in c_sc.items() for k2, v2 in v_sc.items() if k1==k2}
+    if calib_valid == 'calib' or calib_valid =='valid':
+        polys = info_polys[0]
+        total_sc = info_polys[1]
+    elif calib_valid =='all':
+        c_poly, v_poly = info_polys['calib'][0], info_polys['valid'][0]
+        polys =  c_poly + v_poly
+        c_sc, v_sc = info_polys['calib'][1], info_polys['valid'][1]
+        total_sc = {k1: v1 + v2 for k1, v1 in c_sc.items() for k2, v2 in v_sc.items() if k1==k2}
 
-    polys = c_poly + v_poly
 
     b1_dfs = {c_name: [ ] for c_name in col_names}
     b2_dfs = {c_name: [ ] for c_name in col_names}
@@ -68,9 +72,8 @@ def construct_param_df(parameter_data, info_c_poly, info_v_polys,
         for params, vals in param_dt.items():
             if '-' in params:
                 array_val = np.take(vals, np.array([p - 1 for p in polys]), axis=1)
-
+                len_v = len(vals)
                 for i, p in enumerate(polys):
-                    len_v = len(array_val[:, i])
 
                     def bf_dfs(dfs, i):
                         dfs['Poly'].extend([p for i in range(len_v)])
@@ -79,10 +82,14 @@ def construct_param_df(parameter_data, info_c_poly, info_v_polys,
                         dfs['Parameter Vals'].extend(array_val[:, i])
                         dfs['Algorithm'].extend([al.upper() for i in range(len_v)])
 
-                        dfs['C/V Poly'].extend(['Calib Poly' if p in c_poly else 'Valid Poly'] * len_v)
-                        dfs['Canal Pos'].extend(
+                        if calib_valid in ['calib', 'valid']:
+                            dfs['C/V Poly'].extend([f'{calib_valid.capitalize()} Poly'] * len_v)
+                        elif calib_valid =='all':
+                            dfs['C/V Poly'].extend(['Calib Poly' if p in c_poly else 'Valid Poly'] * len_v)
+
+                        dfs['Canal Position'].extend(
                             [[sc[sc.find(',') + 2]] * len_v for sc, l_pol in total_sc.items() if p in l_pol][0])
-                        dfs['Soil Type'].extend(
+                        dfs['Soil Class'].extend(
                             [[sc[0]] * len_v for sc, l_pol in total_sc.items() if p in l_pol][0])
 
                     if params.startswith("K"):

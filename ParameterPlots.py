@@ -1,18 +1,17 @@
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 from data_process import clr_marker
 
 
-def group_parameters_at_loc(data, hue='Algorithm', save=None, type='scatterplots'):
+def group_parameters_at_loc(data, hue='Algorithm', save=None, type='scatterplots', col_type = 'Canal Position'):
     clr_pal =clr_marker(mtd_clr=True)[list(data[hue])[0].lower()]# {list(data[hue])[0]: }
 
     def plot(poly=True, type=type):
         aspect = [0.5 if type == 'scatterplots' else 0.7][0]
 
         if poly:
-            g = sns.FacetGrid(data, row="Parameter", col='Canal Pos', height=4, aspect=aspect, margin_titles=True,
+            g = sns.FacetGrid(data, row="Parameter", col=col_type, height=4, aspect=aspect, margin_titles=True,
                               sharex=False, sharey=True, hue=hue, legend_out=True)
         else:
             g = sns.FacetGrid(data, col="Parameter", height=4, aspect=aspect, margin_titles=True,
