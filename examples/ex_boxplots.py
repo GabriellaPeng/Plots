@@ -16,22 +16,22 @@ calib_valid = 'valid'
 
 gofs = [beh_gofs + num_gofs if obj_type == 'all' else beh_gofs if obj_type == 'beh' else num_gofs][0]
 
-calib_data = load_calib_gof_data(algorithms, gofs, tops=True)  # 500 likes
+calib_data = load_calib_gof_data(algorithms, gofs, tops=False)  # 500 likes
 
 if not gof_location:
     plot_path = plot_path + ['gofs/' if os.name == 'posix' else 'gofs\\'][0]
 
-    valid_data = load_valid_likes(algorithms, gofs, weighted=True)
+    valid_data = load_valid_likes(algorithms, gofs)
     calib_data, valid_data = equal_len_calib_valid(calib_data, valid_data)
-    dfs, mean_list = construct_df(calib_data, valid_data)
-    dist_parameters(dfs, save=plot_path + f'{obj_type}', kind='box')
+    dfs = construct_df(calib_data, valid_data)[0]
+    dist_parameters(dfs, save=plot_path + f'{obj_type}')
 
 else:
     plot_path = plot_path + ['gofs_soil_canal/' if os.name == 'posix' else 'gofs_soil_canal\\'][0]
     soil_canal = 'soil'  # 'soil', 'canal'
     sc_name = ['' if soil_canal == 'all' else soil_canal][0]
 
-    v_data = load_valid_res(algorithms, gofs, top_res=True)
+    v_data = load_valid_res(algorithms, gofs)
     s_cnl = _soil_canal(list(load_obs_data(valid_polygon)))  # calib_polygon
     s_cnl, mask = proc_soil_canal_mask(soil_canal, s_cnl, gen_mask=True)
 

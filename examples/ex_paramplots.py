@@ -10,7 +10,7 @@ algorithms = ['mle', 'demcz', 'dream', 'fscabc']
 calib = True
 valid = False
 
-parameter_data = load_calib_param_data(algorithms, gofs, tops=True)
+parameter_data = load_calib_param_data(algorithms, gofs, tops=False)
 
 c_polys = list(load_obs_data(calib_polygon))
 c_soil_canal = _soil_canal(c_polys)

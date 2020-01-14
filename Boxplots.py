@@ -6,7 +6,7 @@ import matplotlib.colors as mcolors
 from matplotlib.patches import Polygon
 
 
-def dist_parameters(data, save=None, kind='box'):
+def dist_parameters(data, save=None):
     '''Figure 4, Boxplots for all obj funcs'''
 
     dt = data
@@ -15,8 +15,24 @@ def dist_parameters(data, save=None, kind='box'):
     sns.set(style="darkgrid")
     dt_col = list(dt.head())
 
-    g = sns.catplot(x=dt_col[0], y=dt_col[2], col=dt_col[3], hue=dt_col[1], data=dt, kind=kind, palette="vlag",
-                    height=5, aspect=1.1, sharex=False, legend_out=True, legend=False)
+    algorithms = dt_col[2]
+    c_v_data = dt_col[0]
+    gofs = dt_col[3]
+
+    if 'ΔAIC' in list(set(data[dt_col[3]])):
+
+        sns.countplot(y=algorithms, hue=dt_col[1], data=dt)
+
+        g = sns.catplot(x=c_v_data, y=algorithms, col=gofs["ΔAIC"], hue=dt_col[1], data=dt,
+                        kind='count', palette="vlag", height=5, aspect=1.1, sharex=False, legend_out=True, legend=False)
+
+        g = sns.catplot(x=c_v_data, y=algorithms, col=gofs, hue=dt_col[1], data=dt.query(f"{dt_col[3]} != ΔAIC"),
+                        kind='box', palette="vlag", height=5, aspect=1.1, sharex=False, legend_out=True, legend=False)
+
+    else:
+        kind = 'box'
+        g = sns.catplot(x=c_v_data, y=algorithms, col=gofs, hue=dt_col[1], data=dt, kind=kind, palette="vlag",
+                        height=5, aspect=1.1, sharex=False, legend_out=True, legend=False)
 
     plt.subplots_adjust(wspace=.01)
 
