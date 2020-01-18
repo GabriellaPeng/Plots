@@ -203,7 +203,7 @@ def plot_soil_canal(soil_canal, polys='all', calib_valid='valid'):
     if polys == 'best':
         if calib_valid == 'valid':
             if soil_canal == 'soil':
-                npoly = [164, 36, 76, 50]
+                npoly = [164, 36, 76, 50] #TODO: this can be changed
             elif soil_canal == 'canal':
                 npoly = [76, 36, 164]
         elif calib_valid == 'calib':
@@ -225,3 +225,19 @@ def plot_soil_canal(soil_canal, polys='all', calib_valid='valid'):
     elif soil_canal == 'canal':
         sc = canal
     return sc, npoly
+
+
+def run_sim_vs_obs(l_poly, algorithm, gofs, type_sim, type_res, data):
+    sim_norm = [{gof: { } for gof in gofs} if l_poly['nrow'] > 1 else { }][0]
+    res_dt = [{gof: { } for gof in gofs} if l_poly['nrow'] > 1 else { }][0]
+
+    for gof in gofs:
+        if l_poly['nrow'] > 1:
+            sim_norm[gof].update({type_sim: data[gof][algorithm][type_sim]})
+            res_dt[gof].update({type_res: data[gof][algorithm][type_res]})
+
+        else:
+            sim_norm[type_sim] = data[gof][algorithm][type_sim]
+            res_dt[type_sim] = data[gof][algorithm][type_res]
+
+    return sim_norm, res_dt

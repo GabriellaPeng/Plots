@@ -8,22 +8,31 @@ from data_process import clr_marker, plot_soil_canal
 from examples.ex_Marks import _clr_marker
 
 
-def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_valid, polys):
+def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_valid, polys, combine_polys):
     ''' {'ncol': [17, 168, 175] , 'nrow': 4}'''
 
     l_pol = l_poly['ncol']
     nrow = l_poly['nrow']
-    ncol = len(l_pol)
+    ncol = [len(l_pol) if not combine_polys else 1][0]
 
     def _ind_p(c, r, res=res, sims=sims):
         all_poly = plot_soil_canal('canal', 'all', calib_valid)[1]
         if nrow > 1:
             gofs = list(res)
-            p = l_pol[c]
-            ind_p = all_poly.index(p)
-            ind_ax = [c, r, ncol, nrow]
+            if combine_polys:
+                p = None
+                ind_p = [np.where(np.asarray(all_poly)==i)[0][0] for i in l_pol]
+                ind_ax = [c, r, 0, nrow]
+            else:
+                p = l_pol[c]
+                ind_p = all_poly.index(p)
+                ind_ax = [c, r, ncol, nrow]
+
             p_res = res[gofs[r]][:, :, ind_p]
             p_sim = sims[gofs[r]][:, ind_p]
+            if combine_polys:
+                p_res.reshape((p_res.shape[0]*p_res.shape[2]), p_res.shape[1])
+                p_sim = np.average(p_sim, axis=1)
             gof = gofs[r]
         else:
             p = l_pol[c + r]
@@ -46,10 +55,11 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_val
         for c in range(ncol):
             for r in range(nrow):
                 ind_p, p, ind_ax, p_res, p_sim, gof= _ind_p(c, r)
-                param_uncertainty_bounds(p_res, obs_norm[:, ind_p], p, p_sim,
-                                         ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax, ylabel=gof, polys=polys)
+                obs_data = [obs_norm[:, ind_p] if p is not None else np.average(obs_norm[:, ind_p], axis=1)][0]
+                param_uncertainty_bounds(p_res, obs_data, p, p_sim,
+                                         ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax, ylabel=gof)
 
-        fig1.savefig(save_plot + '.png', dpi=350)
+        fig1.savefig(save_plot + '.png', dpi=300)
         plt.close(fig1)
 
     elif 'cis' == figures:
@@ -71,7 +81,7 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_val
 
 
 def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly=None,
-                     figures=['bounds'], calib_valid='valid', polys=None):
+                     figures=['bounds'], calib_valid='valid', polys=None, combine_polys=False):
     '''l_poly = {nrow: int, ncol:[list of list]}'''
 
     sns.set(style="darkgrid")
@@ -85,7 +95,7 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly
             dict_sim_norm = [v for k, v in dict_sim_norm.items()][0]
 
         for fig in figures:
-            bounds_cis(fig, l_poly, npoly, obs_norm, dict_res, dict_sim_norm, save_plot, calib_valid, polys)
+            bounds_cis(fig, l_poly, npoly, obs_norm, dict_res, dict_sim_norm, save_plot, calib_valid, polys, combine_polys)
 
     else:
         for type, p_sim in dict_res.items():
@@ -113,7 +123,7 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly
                     plt.close(fig2)
 
 
-def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None, ylabel=None, warmup_period=None, polys=None):
+def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None, ylabel=None, warmup_period=None):
     q5, q25, q75, q95 = [], [], [], []
     for t in range(len(observations)):
         q5.append(np.percentile(sim_res[:, t], 2.5))
@@ -122,12 +132,14 @@ def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=N
     if ind_ax[:2] == [0, 0]:
         bounds_label = '5-95% simulation bound'
         simul_label = 'Weighted average simulation'
-        obs_label = f'Polygon{poly} observation'
-    elif ind_ax[1] == 0 and polys== 'best':
+        obs_label = [f'Polygon{poly} observation' if poly is not None else None][0]
+
+    elif ind_ax[1] == 0 and poly is not None:
         obs_label = f'Polygon {poly} observation'
         bounds_label, simul_label = None, None
     else:
         bounds_label, simul_label, obs_label = None, None, None
+
     # ax.plot(q5, color='lightblue', linestyle='solid')
     # ax.plot(q95, color='lightblue', linestyle='solid')
     ax.fill_between(np.arange(0, len(q5), 1), list(q5), list(q95), facecolor='lightblue', zorder=0,
