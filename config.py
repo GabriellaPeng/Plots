@@ -61,7 +61,6 @@ def construct_param_df(parameter_data, calib_valid, info_polys,
         c_sc, v_sc = info_polys['calib'][1], info_polys['valid'][1]
         total_sc = {k1: v1 + v2 for k1, v1 in c_sc.items() for k2, v2 in v_sc.items() if k1==k2}
 
-
     b1_dfs = {c_name: [ ] for c_name in col_names}
     b2_dfs = {c_name: [ ] for c_name in col_names}
     dfs_socioeco = {c_name: [ ] for c_name in col_names[:4]}
@@ -100,6 +99,7 @@ def construct_param_df(parameter_data, calib_valid, info_polys,
             else:
                 len_v = len(vals)
                 prms = params[:params.find(' ')] + ','+[params[i] for i in [m.end() for m in re.finditer(' ', params)]][0]
+                prms = [prms[:-1] + 'Summer' if prms[-1] == 'K' else prms[:-1] + 'Winter' if prms[-1] == 'r' else 'CTW'][0]
 
                 dfs_socioeco['Parameter'].extend([prms]*len_v)
                 dfs_socioeco['Parameter Vals'].extend(vals)

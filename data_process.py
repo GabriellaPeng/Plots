@@ -1,8 +1,10 @@
 import inspect
+import re
+
 import numpy as np
 
 from Paths import calib_polygon, valid_polygon
-from examples.load_data import load_obs_data
+from examples.load_data import load_obs_data, load_calib_gof_data, load_valid_likes
 
 maxi = ['nse', 'mic']
 mini = ['aic', 'rmse']
@@ -241,3 +243,38 @@ def run_sim_vs_obs(l_poly, algorithm, gofs, type_sim, type_res, data):
             res_dt[type_sim] = data[gof][algorithm][type_res]
 
     return sim_norm, res_dt
+
+
+def find_optimiza_parameter(parameter_data, algorithms, gofs, sc_type):
+    maxi, mini = ['aic', 'mic', 'nse'], ['rmse']
+    dict_sc, polys = plot_soil_canal(sc_type)
+    valid_gofs = load_valid_likes(algorithms, gofs, top_weighted=True)  # TODO: later change to False
+    bf_opt_params, sd_opt_params = {gof: {} for gof in gofs}, {gof:{al: {} for al in algorithms} for gof in gofs}
+
+    if 'aic' in gofs:
+        calib_gofs = load_calib_gof_data(algorithms, ['aic'], tops=True)['aic']
+        for al in algorithms:
+            valid_gofs['aic'][al] = valid_gofs['aic'][al] - calib_gofs[al]
+
+    for gof in gofs:
+        for al in algorithms:
+            ind_opt = [np.argmax(valid_gofs[gof][al]) if gof in maxi else np.argmin(valid_gofs[gof][al])][0]
+            for prm, val in parameter_data[gof][al].items():
+                if '-' in prm:
+                    prm = prm[:prm.find(' ')]
+                    if prm not in bf_opt_params[gof]:
+                        bf_opt_params[gof].update({prm: { }})
+                    if al not in bf_opt_params[gof][prm]:
+                        bf_opt_params[gof][prm].update({al: { }})
+
+                    val = np.take(val, [i - 1 for i in polys], axis=1) #500*18
+                    val = val[ind_opt, :] #18
+                    for sc, sc_val in dict_sc.items():
+                        bf_opt_params[gof][prm][al][sc] = np.mean(np.take(val, [polys.index(i) for i in sc_val]))
+                else:
+                    prm = prm[:prm.find(' ')] + ',' + \
+                           [prm[i] for i in [m.end() for m in re.finditer(' ', prm)]][0]
+                    prm = [prm[:-1] + 'Summer' if prm[-1] == 'K' else prm[:-1] + 'Winter' if prm[-1] == 'r' else 'CTW'][0]
+                    sd_opt_params[gof][al][prm] = val[ind_opt]
+
+    return bf_opt_params, sd_opt_params

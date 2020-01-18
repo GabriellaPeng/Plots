@@ -101,6 +101,7 @@ def load_calib_param_data(algorithms, gofs, res_path=res_path, tops=False):
                 calib_params = {prm: np.take(vals, mask, axis=0) for prm, vals in calib_params.items()}
             dict_params[gof][m] = calib_params
 
+
     return dict_params
 
 
@@ -252,10 +253,11 @@ def load_valid_likes(algorithms, gofs, res_path=res_path, variable=variable, top
         for m in algorithms:
             a = np.load(res_path + f'{m}/valid_{gof}.npy', allow_pickle=True).tolist()[variable][type][gof]['likes']
 
-            if top_weighted:
+            if top_weighted and 'top_res' in a:
                 dict_gof[gof][m] = np.average(a['top_res'], axis=1)
 
             else:
+                dict_gof[gof][m] = np.average(a['all_res'], axis=1)
                 print("Sorry, please provide gof data for all runs")
 
     return dict_gof
