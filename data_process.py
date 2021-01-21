@@ -12,7 +12,8 @@ mini = ['aic', 'rmse']
 
 def retrieve_name(var):
     for fi in reversed(inspect.stack()):
-        names = [var_name for var_name, var_val in fi.frame.f_locals.items() if var_val is var]
+        names = [var_name for var_name, var_val in fi.frame.f_locals.items() if
+                 var_val is var]
         if len(names) > 0:
             return names[0]
 
@@ -65,36 +66,58 @@ def mu_sg(npoly, data):
 
 
 def normalize_data(npoly, mu, sg, data):
-    norm = np.array([((data[:, i] - mu[i]) / sg[i]) for i, p in enumerate(npoly)])  # 38*61
+    norm = np.array(
+        [((data[:, i] - mu[i]) / sg[i]) for i, p in enumerate(npoly)])  # 38*61
     return norm
 
 
-def _soil_canal(all_poly_dt):
-    cls = ['Chuharkana, Tail', 'Buchanan, Head', 'Buchanan, Middle', 'Buchanan, Tail', 'Farida, Head', 'Farida, Middle',
+def _soil_canal(all_poly_dt, good_polys):
+    cls = ['Chuharkana, Tail', 'Buchanan, Head', 'Buchanan, Middle', 'Buchanan, Tail',
+           'Farida, Head', 'Farida, Middle',
            'Farida, Tail', 'Jhang, Middle', 'Jhang, Tail']
 
     s_p = {c: [] for c in cls}
 
-    for p in all_poly_dt:
-        if p in (143, 164, 175, 203):  # CT
-            s_p[cls[0]].append(p)
-        elif p in (17, 52, 185):  # BH
-            s_p[cls[1]].append(p)
-        elif p in (36, 85, 132):  # BM
-            s_p[cls[2]].append(p)
-        elif p in (110, 125, 215):  # BT
-            s_p[cls[3]].append(p)
-        elif p in (7, 13, 76, 71):  # FH
-            s_p[cls[4]].append(p)
-        elif p in (25, 77, 123, 168, 171):  # FM
-            s_p[cls[5]].append(p)
-        elif p in (54, 130, 172, 174, 178, 187, 191, 202, 205):  # FT
-            s_p[cls[6]].append(p)
-        elif p in (16, 22, 80, 94):  # JM
-            s_p[cls[7]].append(p)
-        elif p in (50, 121):  # JT
-            s_p[cls[8]].append(p)
-
+    if good_polys:  # only good evaluation polygons
+        for p in all_poly_dt:
+            if p ==175:  # CT
+                s_p[cls[0]].append(p)
+            # elif p == 185:  # BH
+            #     s_p[cls[1]].append(p)
+            # elif p == 36:  # BM
+            #     s_p[cls[2]].append(p)
+            # elif p == 125:  # BT
+            #     s_p[cls[3]].append(p)
+            # elif p in (76, 71):  # FH
+            #     s_p[cls[4]].append(p)
+            # elif p == 168:  # FM
+            #     s_p[cls[5]].append(p)
+            elif p == 178:  # FT 130, 174,
+                s_p[cls[6]].append(p)
+            # elif p == 22:  # JM
+            #     s_p[cls[7]].append(p)
+            # elif p == 50:  # JT
+            #     s_p[cls[8]].append(p)
+    else:
+        for p in all_poly_dt:
+            if p in (143, 164, 175, 203):  # CT
+                s_p[cls[0]].append(p)
+            elif p in (17, 52, 185):  # BH
+                s_p[cls[1]].append(p)
+            elif p in (36, 85, 132):  # BM
+                s_p[cls[2]].append(p)
+            elif p in (110, 125, 215):  # BT
+                s_p[cls[3]].append(p)
+            elif p in (7, 13, 76, 71):  # FH
+                s_p[cls[4]].append(p)
+            elif p in (25, 77, 123, 168, 171):  # FM
+                s_p[cls[5]].append(p)
+            elif p in (54, 130, 172, 174, 178, 187, 191, 202, 205):  # FT
+                s_p[cls[6]].append(p)
+            elif p in (16, 22, 80, 94):  # JM
+                s_p[cls[7]].append(p)
+            elif p in (50, 121):  # JT
+                s_p[cls[8]].append(p)
     return s_p
 
 
@@ -132,7 +155,8 @@ def _combine_soil_canal_data(polys, soil_canal='soil'):
         return canal_data
 
 
-def clr_marker(mtd_clr=False, mtd_mkr=False, obj_fc_clr=False, obj_fc_mkr=False, wt_mu_m=False):
+def clr_marker(mtd_clr=False, mtd_mkr=False, obj_fc_clr=False, obj_fc_mkr=False,
+               wt_mu_m=False):
     if mtd_clr:
         return {'fscabc': 'b', 'dream': 'orange', 'mle': 'r', 'demcz': 'g'}
     elif mtd_mkr:
@@ -156,7 +180,8 @@ def proc_soil_canal_mask(soil_canal, soil_canal_mask, gen_mask=False):
             soil_canal[sc[sc.find(',') + 2]].extend(vals)
 
     elif soil_canal == 'all':
-        soil_canal = {sc[0] + sc[sc.find(',') + 2]: vals for sc, vals in soil_canal_mask.items()}
+        soil_canal = {sc[0] + sc[sc.find(',') + 2]: vals for sc, vals in
+                      soil_canal_mask.items()}
 
     if gen_mask and soil_canal != 'all':
         mask = {s: [i + 0.5] for i, s in enumerate(soil_canal)}
@@ -170,7 +195,8 @@ def proc_data_to_soil_canal(data, soil_canal):
     polys = list(np.sort([j for i in list(soil_canal.values()) for j in i]))
 
     for i, (sc, d_poly) in enumerate(soil_canal.items()):
-        proc_data[:, i] = np.average(np.take(data[:, ], [polys.index(j) for j in d_poly], axis=1), axis=1)
+        proc_data[:, i] = np.average(
+            np.take(data[:, ], [polys.index(j) for j in d_poly], axis=1), axis=1)
 
     return proc_data
 
@@ -198,14 +224,14 @@ def load_res_sim(type_results):
     return type_res, type_sim
 
 
-def plot_soil_canal(soil_canal, polys='all', calib_valid='valid'):
+def plot_soil_canal(soil_canal, polys='all', calib_valid='valid', good_polys=False):
     soil = {s: [] for s in ['C', 'B', 'F', 'J']}
     canal = {c: [] for c in ['H', 'M', 'T']}
 
     if polys == 'best':
         if calib_valid == 'valid':
             if soil_canal == 'soil':
-                npoly = [164, 36, 76, 50] #TODO: this can be changed
+                npoly = [164, 36, 76, 50]  # TODO: this can be changed
             elif soil_canal == 'canal':
                 npoly = [76, 36, 164]
         elif calib_valid == 'calib':
@@ -215,7 +241,7 @@ def plot_soil_canal(soil_canal, polys='all', calib_valid='valid'):
         polygon_path = [calib_polygon if calib_valid == 'calib' else valid_polygon][0]
         npoly = list(load_obs_data(polygon_path))
 
-    d_polys = _soil_canal(npoly)
+    d_polys = _soil_canal(npoly, good_polys)
 
     for s_c, l_polys in d_polys.items():
         soil[s_c[0]].extend(l_polys)
@@ -230,8 +256,8 @@ def plot_soil_canal(soil_canal, polys='all', calib_valid='valid'):
 
 
 def run_sim_vs_obs(l_poly, algorithm, gofs, type_sim, type_res, data):
-    sim_norm = [{gof: { } for gof in gofs} if l_poly['nrow'] > 1 else { }][0]
-    res_dt = [{gof: { } for gof in gofs} if l_poly['nrow'] > 1 else { }][0]
+    sim_norm = [{gof: {} for gof in gofs} if l_poly['nrow'] > 1 else {}][0]
+    res_dt = [{gof: {} for gof in gofs} if l_poly['nrow'] > 1 else {}][0]
 
     for gof in gofs:
         if l_poly['nrow'] > 1:
@@ -248,8 +274,10 @@ def run_sim_vs_obs(l_poly, algorithm, gofs, type_sim, type_res, data):
 def find_optimiza_parameter(parameter_data, algorithms, gofs, sc_type):
     maxi, mini = ['aic', 'mic', 'nse'], ['rmse']
     dict_sc, polys = plot_soil_canal(sc_type)
-    valid_gofs = load_valid_likes(algorithms, gofs, top_weighted=True)  # TODO: later change to False
-    bf_opt_params, sd_opt_params = {gof: {} for gof in gofs}, {gof:{al: {} for al in algorithms} for gof in gofs}
+    valid_gofs = load_valid_likes(algorithms, gofs,
+                                  top_weighted=True)  # TODO: later change to False
+    bf_opt_params, sd_opt_params = {gof: {} for gof in gofs}, {
+        gof: {al: {} for al in algorithms} for gof in gofs}
 
     if 'aic' in gofs:
         calib_gofs = load_calib_gof_data(algorithms, ['aic'], tops=True)['aic']
@@ -258,23 +286,27 @@ def find_optimiza_parameter(parameter_data, algorithms, gofs, sc_type):
 
     for gof in gofs:
         for al in algorithms:
-            ind_opt = [np.argmax(valid_gofs[gof][al]) if gof in maxi else np.argmin(valid_gofs[gof][al])][0]
+            ind_opt = [np.argmax(valid_gofs[gof][al]) if gof in maxi else np.argmin(
+                valid_gofs[gof][al])][0]
             for prm, val in parameter_data[gof][al].items():
                 if '-' in prm:
                     prm = prm[:prm.find(' ')]
                     if prm not in bf_opt_params[gof]:
-                        bf_opt_params[gof].update({prm: { }})
+                        bf_opt_params[gof].update({prm: {}})
                     if al not in bf_opt_params[gof][prm]:
-                        bf_opt_params[gof][prm].update({al: { }})
+                        bf_opt_params[gof][prm].update({al: {}})
 
-                    val = np.take(val, [i - 1 for i in polys], axis=1) #500*18
-                    val = val[ind_opt, :] #18
+                    val = np.take(val, [i - 1 for i in polys], axis=1)  # 500*18
+                    val = val[ind_opt, :]  # 18
                     for sc, sc_val in dict_sc.items():
-                        bf_opt_params[gof][prm][al][sc] = np.mean(np.take(val, [polys.index(i) for i in sc_val]))
+                        bf_opt_params[gof][prm][al][sc] = np.mean(
+                            np.take(val, [polys.index(i) for i in sc_val]))
                 else:
                     prm = prm[:prm.find(' ')] + ',' + \
-                           [prm[i] for i in [m.end() for m in re.finditer(' ', prm)]][0]
-                    prm = [prm[:-1] + 'Summer' if prm[-1] == 'K' else prm[:-1] + 'Winter' if prm[-1] == 'r' else 'CTW'][0]
+                          [prm[i] for i in [m.end() for m in re.finditer(' ', prm)]][0]
+                    prm = [
+                        prm[:-1] + 'Summer' if prm[-1] == 'K' else prm[:-1] + 'Winter' if
+                        prm[-1] == 'r' else 'CTW'][0]
                     sd_opt_params[gof][al][prm] = val[ind_opt]
 
     return bf_opt_params, sd_opt_params

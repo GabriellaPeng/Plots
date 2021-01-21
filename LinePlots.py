@@ -8,7 +8,8 @@ from data_process import clr_marker, plot_soil_canal
 from examples.ex_Marks import _clr_marker
 
 
-def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_valid, polys, combine_polys):
+def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_valid,
+               combine_polys, xlabel, ylabel):
     ''' {'ncol': [17, 168, 175] , 'nrow': 4}'''
 
     l_pol = l_poly['ncol']
@@ -43,7 +44,7 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_val
             gof = ''
         return ind_p, p, ind_ax, p_res, p_sim, gof
 
-    if 'bounds' == figures:
+    if figures == 'bounds':
         plt.ioff()
         fig1 = plt.figure(figsize=(4 * 2 * ncol, 4 * nrow), constrained_layout=False)
         gs1 = GridSpec(ncols=ncol, nrows=nrow, wspace=0.0, hspace=0.0)
@@ -57,12 +58,14 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_val
                 ind_p, p, ind_ax, p_res, p_sim, gof= _ind_p(c, r)
                 obs_data = [obs_norm[:, ind_p] if p is not None else np.average(obs_norm[:, ind_p], axis=1)][0]
                 param_uncertainty_bounds(p_res, obs_data, p, p_sim,
-                                         ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax, ylabel=gof)
+                                         ax=vars()[f'ax1{r}{c}'], ind_ax=ind_ax,
+                                         ylabel=ylabel, title_legend=gof.upper())
 
+        fig1.axes[nrow-1].set_xlabel(xlabel)
         fig1.savefig(save_plot + '.png', dpi=300)
         plt.close(fig1)
 
-    elif 'cis' == figures:
+    elif figures == 'cis':
         plt.ioff()
         fig2 = plt.figure(figsize=(4 * 2 * ncol, 4 * nrow), constrained_layout=False)
         gs2 = GridSpec(ncols=ncol, nrows=nrow, wspace=0.0, hspace=0.0)
@@ -81,7 +84,8 @@ def bounds_cis(figures, l_poly, npoly, obs_norm, res, sims, save_plot, calib_val
 
 
 def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly=None,
-                     figures=['bounds'], calib_valid='valid', polys=None, combine_polys=False):
+                     figures=['bounds'], calib_valid='valid', combine_polys=False,
+                     xlabel=None, ylabel=None):
     '''l_poly = {nrow: int, ncol:[list of list]}'''
 
     sns.set(style="darkgrid")
@@ -95,7 +99,8 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly
             dict_sim_norm = [v for k, v in dict_sim_norm.items()][0]
 
         for fig in figures:
-            bounds_cis(fig, l_poly, npoly, obs_norm, dict_res, dict_sim_norm, save_plot, calib_valid, polys, combine_polys)
+            bounds_cis(fig, l_poly, npoly, obs_norm, dict_res, dict_sim_norm,
+                       save_plot, calib_valid, combine_polys, xlabel, ylabel)
 
     else:
         for type, p_sim in dict_res.items():
@@ -108,7 +113,7 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly
                     ax1 = fig1.add_subplot(gs1[0])
 
                     param_uncertainty_bounds(p_sim[:, :, ind_p], obs_norm[:, ind_p], p, p_sim[:, ind_p],
-                                             ax=ax1, ind_ax=[0])                                        #TODO
+                                             ax=ax1, ind_ax=[0])
                     fig1.savefig(save_plot + f'{[i for i in figures]}_{p}.png', dpi=400)
                     plt.close(fig1)
 
@@ -123,7 +128,8 @@ def plot_top_sim_obs(dict_sim_norm, obs_norm, npoly, save_plot, dict_res, l_poly
                     plt.close(fig2)
 
 
-def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None, ylabel=None, warmup_period=None):
+def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=None,
+                             ylabel=None, warmup_period=None, title_legend=None):
     q5, q25, q75, q95 = [], [], [], []
     for t in range(len(observations)):
         q5.append(np.percentile(sim_res[:, t], 2.5))
@@ -132,7 +138,8 @@ def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=N
     if ind_ax[:2] == [0, 0]:
         bounds_label = '5-95% simulation bound'
         simul_label = 'Weighted average simulation'
-        obs_label = [f'Polygon{poly} observation' if poly is not None else None][0]
+        obs_label = [f'Polygon{poly} observation' if poly is not None else
+                     'Observation'][0]
 
     elif ind_ax[1] == 0 and poly is not None:
         obs_label = f'Polygon {poly} observation'
@@ -152,7 +159,7 @@ def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=N
 
     ax.set_ylim(*ylim)
     yrange = [str(i) for i in np.arange(*ylim, 2)]
-    yrange.insert(0, '')
+    # yrange.insert(0, '')
 
     ax.set_yticks(np.arange(*ylim, 2))
     ax.set_xticks(np.arange(0, len(observations)+1, 2))
@@ -165,7 +172,10 @@ def param_uncertainty_bounds(sim_res, observations, poly, proc_sim, ax, ind_ax=N
     ind_ax_set(ind_ax, yrange, 15, xticklabel, 10, ax, ylabel=ylabel)
 
     if ind_ax[:2] == [0, 0] or ind_ax[1] == 0:
-        ax.legend(loc='upper left', prop={'size': 8}, frameon=False)
+        ax.legend(loc='upper left', prop={'size': 8}, frameon=True,
+                  title=title_legend)
+    else:
+        ax.legend(loc='upper left', title=title_legend) #handles=None,
 
 
 def plot_ci(sims, obs, poly, ax, ind_ax=None, ylabel=None):
@@ -232,7 +242,7 @@ def ind_ax_set(ind_ax, yticklabel, yticksize, xticklabel, xticksize, ax, ylabel)
         c, r, nrow = ind_ax[0], ind_ax[1], ind_ax[3]
         if c == 0:
             ax.set_yticklabels(yticklabel, size=yticksize)
-            ax.set_ylabel(ylabel.upper(), fontsize=20)
+            ax.set_ylabel(ylabel, fontsize=12)
             if r == nrow-1:
                 ax.set_xticklabels(xticklabel, size=xticksize)
             else:
@@ -336,7 +346,8 @@ def plot_gof_convergence(gof, methods, data, save=None):
         # line = ax.plot(x, v, '-', color=clr_marker(mtd_clr=True)[m])
         # ax.legend(line, [m.upper()], loc='upper left', frameon=False)
     ax.set_xlabel('Number of Runs', fontname="Cambria", fontsize=20)
-    ax.set_ylabel(f'{gof.upper()}', fontname="Cambria", fontsize=20)
+    gof = [f'{gof.upper()}r'  if gof=='aic' else f'{gof.upper()}'][0]
+    ax.set_ylabel(f'{gof}', fontname="Cambria", fontsize=20)
     ax.legend(lines, [m.upper() for m in methods], ncol=4, loc='upper left', frameon=False)
     if save is not None:
         fig.savefig(save + f'{gof}', dpi=500)
