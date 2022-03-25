@@ -19,18 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbb60b8f-4993-413f-bbb3-af16d481c510" name="Default Changelist" comment="Update 1.1">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/ex_process_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Plot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Plot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="fbb60b8f-4993-413f-bbb3-af16d481c510" name="Default Changelist" comment="Update 2.0">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Path_Test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LinePlots.py" beforeDir="false" afterPath="$PROJECT_DIR$/LinePlots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_process.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/ex_lineplots.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/ex_lineplots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/load_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/load_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Paths.py" beforeDir="false" afterPath="$PROJECT_DIR$/Paths.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/test.py" afterDir="false" />
     </list>
     <list id="85ae7b7f-2352-4548-a3ae-9042ec884fa2" name="Revert &quot;Update 1.1&quot;" comment="Revert &quot;Update 1.1&quot; 1&#10;&#10;This reverts commit 25b4193b" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +58,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.ex_lineplots">
+  <component name="RunManager" selected="Python.test">
     <configuration name="Plot" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Plot" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -193,19 +187,19 @@
     </configuration>
     <list>
       <item itemvalue="Python.Plot" />
+      <item itemvalue="Python.test" />
       <item itemvalue="Python.ex_boxplots" />
       <item itemvalue="Python.ex_lineplots" />
-      <item itemvalue="Python.ex_scatterplots" />
       <item itemvalue="Python.ex_theil_hist" />
-      <item itemvalue="Python.test" />
+      <item itemvalue="Python.ex_scatterplots" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.ex_lineplots" />
         <item itemvalue="Python.ex_boxplots" />
         <item itemvalue="Python.ex_scatterplots" />
         <item itemvalue="Python.ex_theil_hist" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -326,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599750458664</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Update 2.0">
+      <created>1611239907731</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1611239907731</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -366,57 +367,14 @@
     <MESSAGE value="Update 1.02" />
     <MESSAGE value="Update 1.03" />
     <MESSAGE value="Update 1.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update 1.1" />
+    <MESSAGE value="Update 2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update 2.0" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="577" y="629" width="991" height="350" key="#xdebugger.evaluate" timestamp="1610912821525">
-      <screen x="0" y="23" width="1792" height="1097" />
+    <state x="-1336" y="533" key="Vcs.Push.Dialog.v2" timestamp="1647957622297">
+      <screen x="-1920" y="114" width="1920" height="1057" />
     </state>
-    <state x="577" y="629" width="991" height="350" key="#xdebugger.evaluate/0.23.1792.1097@0.23.1792.1097" timestamp="1610912821525" />
-    <state width="1792" height="351" key="DebuggerActiveHint" timestamp="1610911247173">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state width="1792" height="351" key="DebuggerActiveHint/0.23.1792.1097@0.23.1792.1097" timestamp="1610911247173" />
-    <state width="1377" height="410" key="GridCell.Tab.0.bottom" timestamp="1610914284857">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state width="1377" height="410" key="GridCell.Tab.0.bottom/-1920.117.1920.1057/0.23.1792.1097@0.23.1792.1097" timestamp="1603295081458" />
-    <state width="1377" height="410" key="GridCell.Tab.0.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1610914284857" />
-    <state width="1377" height="410" key="GridCell.Tab.0.center" timestamp="1610914284857">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state width="1377" height="410" key="GridCell.Tab.0.center/-1920.117.1920.1057/0.23.1792.1097@0.23.1792.1097" timestamp="1603295081458" />
-    <state width="1377" height="410" key="GridCell.Tab.0.center/0.23.1792.1097@0.23.1792.1097" timestamp="1610914284857" />
-    <state width="1377" height="410" key="GridCell.Tab.0.left" timestamp="1610914284856">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state width="1377" height="410" key="GridCell.Tab.0.left/-1920.117.1920.1057/0.23.1792.1097@0.23.1792.1097" timestamp="1603295081458" />
-    <state width="1377" height="410" key="GridCell.Tab.0.left/0.23.1792.1097@0.23.1792.1097" timestamp="1610914284856" />
-    <state width="1377" height="410" key="GridCell.Tab.0.right" timestamp="1610914284857">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state width="1377" height="410" key="GridCell.Tab.0.right/-1920.117.1920.1057/0.23.1792.1097@0.23.1792.1097" timestamp="1603295081458" />
-    <state width="1377" height="410" key="GridCell.Tab.0.right/0.23.1792.1097@0.23.1792.1097" timestamp="1610914284857" />
-    <state width="1377" height="410" key="GridCell.Tab.1.bottom" timestamp="1610914284858">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state width="1377" height="410" key="GridCell.Tab.1.bottom/-1920.117.1920.1057/0.23.1792.1097@0.23.1792.1097" timestamp="1603295081460" />
-    <state width="1377" height="410" key="GridCell.Tab.1.bottom/0.23.1792.1097@0.23.1792.1097" timestamp="1610914284858" />
-    <state width="1377" height="410" key="GridCell.Tab.1.center" timestamp="1610914284858">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state width="1377" height="410" key="GridCell.Tab.1.center/-1920.117.1920.1057/0.23.1792.1097@0.23.1792.1097" timestamp="1603295081459" />
-    <state width="1377" height="410" key="GridCell.Tab.1.center/0.23.1792.1097@0.23.1792.1097" timestamp="1610914284858" />
-    <state width="1377" height="410" key="GridCell.Tab.1.left" timestamp="1610914284857">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state width="1377" height="410" key="GridCell.Tab.1.left/-1920.117.1920.1057/0.23.1792.1097@0.23.1792.1097" timestamp="1603295081459" />
-    <state width="1377" height="410" key="GridCell.Tab.1.left/0.23.1792.1097@0.23.1792.1097" timestamp="1610914284857" />
-    <state width="1377" height="410" key="GridCell.Tab.1.right" timestamp="1610914284858">
-      <screen x="0" y="23" width="1792" height="1097" />
-    </state>
-    <state width="1377" height="410" key="GridCell.Tab.1.right/-1920.117.1920.1057/0.23.1792.1097@0.23.1792.1097" timestamp="1603295081459" />
-    <state width="1377" height="410" key="GridCell.Tab.1.right/0.23.1792.1097@0.23.1792.1097" timestamp="1610914284858" />
+    <state x="-1336" y="533" key="Vcs.Push.Dialog.v2/-1920.114.1920.1057/0.23.1792.1097@-1920.114.1920.1057" timestamp="1647957622297" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -435,11 +393,6 @@
           <url>file://$PROJECT_DIR$/Boxplots.py</url>
           <line>40</line>
           <option name="timeStamp" value="179" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/examples/test.py</url>
-          <line>13</line>
-          <option name="timeStamp" value="338" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Boxplots.py</url>
@@ -508,7 +461,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Paths.py</url>
-          <line>19</line>
+          <line>18</line>
           <option name="timeStamp" value="588" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -540,6 +493,11 @@
           <url>file://$PROJECT_DIR$/LinePlots.py</url>
           <line>49</line>
           <option name="timeStamp" value="630" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/examples/test.py</url>
+          <line>53</line>
+          <option name="timeStamp" value="649" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

@@ -2,7 +2,6 @@ import os
 
 variable = 'mds_Watertable depth Tinamit'
 month = 'dec'
-
 if os.name == 'posix':
     root_path = "/Users/gabriellapeng/OneDrive - Concordia University - Canada/gaby/pp2_data/calib"
 
